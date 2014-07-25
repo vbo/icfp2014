@@ -1,11 +1,11 @@
 LD 0 0
-SEL 4 8
+SEL IF_1 IF_0 ; IF_1 or IF_0 here
 RTN
-LD 0 1
+LD 0 1 ; IF_0
 LD 0 2
 ADD
 JOIN
-LD 0 1
+LD 0 1 ; IF_1
 LD 0 2
 SUB
 JOIN
