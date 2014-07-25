@@ -84,5 +84,6 @@ if __name__ == '__main__':
             code[instruction_no] += '    ; def ' + unit.name
         instruction_no += unit.instructions_count
     code = replace_function_names(code, functions)
+    code += " "
     print "\n".join(code)
 
