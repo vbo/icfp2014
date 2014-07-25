@@ -10,3 +10,18 @@ grid. An enumeration represents the contents of each grid cell:
 * 4: Fruit location (`%`)
 * 5: Lambda-Man starting position ('\')
 * 6: Ghost starting position ('=')
+
+###
+#\#
+###
+
+(
+    (
+        (0, (0, (0, 0))),
+        (
+            (0, (5, (0, 0))),
+            ((0, (0, (0, 0))), 0)
+        )
+    ),
+
+)
