@@ -3,9 +3,10 @@ def replace_function_names(lines, functions):
     for line in lines:
         if line.startswith('LDF'):
             literals = line.split(' ')
-            line = 'LDF ' + str(functions[literals[1]]) + '    ; call ' + instruction.name
+            line = 'LDF ' + str(functions[literals[1]]) + '    ; call ' + unit.name
         result += [line]
     return result
+
 
 def get_marks(lines):
     marks = {}
@@ -14,6 +15,7 @@ def get_marks(lines):
         if c >= 0:
             marks[line[c + 1:].strip()] = i
     return marks
+
 
 def replace_marks(lines, marks, line_no):
     result = []
@@ -25,7 +27,6 @@ def replace_marks(lines, marks, line_no):
         for mark in marks:
             place = code.find(mark)
             if place >= 0:
-                print code, place, marks[mark], line_no
                 code = code[:place] + str(int(marks[mark]) + line_no) + code[place + len(mark):]
         new_line = code
         if len(comment):
@@ -33,44 +34,56 @@ def replace_marks(lines, marks, line_no):
         result += [new_line]
     return result
 
+
 def replace_common(lines, line_no):
     marks = get_marks(lines)
-    print marks
     result = replace_marks(lines, marks, line_no)
     return result
 
-class Function(object):
+
+class CompilationUnit(object):
     def __init__(self, name):
         self.name = name
         self.lines = []
-        for line in file('functions/' + name + '.gcc'):
-            self.lines.append(line.strip())
+        self.instructions_count = 0
+
+    def load_source(self, prefix):
+        for line in file(prefix + '/' + self.name + '.gcc'):
+            line = line.strip()
+            if not line:
+                continue
+            self.instructions_count += 1
+            self.lines.append(line)
 
     def compile(self, line_no):
         return replace_common(self.lines, line_no)
 
-class Program(object):
+
+class Function(CompilationUnit):
     def __init__(self, name):
-        self.name = name
-        self.lines = []
-        for line in file('programs/' + name + '.gcc'):
-            self.lines.append(line.strip())
+        super(Function, self).__init__(name)
+        self.load_source("functions")
 
-    def compile(self, line_no):
-        return replace_common(self.lines, line_no)
 
-instructions = [ Program('MAIN'), Function('ADD_OR_SUB') ]
+class Program(CompilationUnit):
+    def __init__(self, name):
+        super(Program, self).__init__(name)
+        self.load_source("programs")
+
+
+compilation_units = [Program('MAIN'), Function('STEP')]
 
 if __name__ == '__main__':
-    line_no = 0
+    instruction_no = 0
     code = []
     functions = {}
-    for instruction in instructions:
-        code += instruction.compile(line_no)
-        if type(instruction) is Function:
-            functions[instruction.name] = line_no
-            code[line_no] += '    ; def ' + instruction.name
-        line_no = len(code)
+    for unit in compilation_units:
+        code += unit.compile(instruction_no)
+        if type(unit) is Function:
+            functions[unit.name] = instruction_no
+            code[instruction_no] += '    ; def ' + unit.name
+        instruction_no += unit.instructions_count
     code = replace_function_names(code, functions)
+    code += " "
     print "\n".join(code)
 
