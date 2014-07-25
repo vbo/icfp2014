@@ -48,7 +48,7 @@ Commands
 - RTN
 - DUM $n
 - RAP $n
-- STOP
+- STOP          end of program
 - TSEL $t $f    like CELL but JOIN is not possible
 - TAP $n
 - TRAP $n
