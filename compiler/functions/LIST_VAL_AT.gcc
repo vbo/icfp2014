@@ -1,0 +1,14 @@
+LD 0 1 ; index
+
+TSEL $NEXT $RTN ; index != 0
+    LD 0 0 ; $NEXT
+    CDR
+    LD 0 1
+    LDC 1
+    SUB
+    LDF LIST_VAL_AT
+    TAP 2
+
+    LD 0 0 ; $RTN
+    CAR
+    RTN
