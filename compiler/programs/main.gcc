@@ -1,17 +1,4 @@
-LDC 1 ; do_sub?
-LDC 42
-LDC 8
-LDF ADD_OR_SUB
-AP 3
-
-LDC 42 ; create linked list (rh) - 42, 12, 20
-LDC 12
-LDC 20
 LDC 0
+LDF STEP
 CONS
-CONS
-CONS
-LDF FOREACH
-AP 1
-
 RTN

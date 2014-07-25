@@ -71,7 +71,7 @@ class Program(CompilationUnit):
         self.load_source("programs")
 
 
-compilation_units = [Program('MAIN'), Function('ADD_OR_SUB'), Function('FOREACH')]
+compilation_units = [Program('MAIN'), Function('STEP')]
 
 if __name__ == '__main__':
     instruction_no = 0

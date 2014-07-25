@@ -1,0 +1,18 @@
+LD 0 0
+LDC 3
+CEQ
+TSEL $NUL $INC
+
+    LDC 0 ; $NUL
+    LDC 0
+    CONS
+    RTN
+
+    LD 0 0 ; $INC
+    LDC 1
+    ADD
+    LD 0 0
+    LDC 1
+    ADD
+    CONS
+    RTN
