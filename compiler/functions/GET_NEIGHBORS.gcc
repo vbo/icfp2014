@@ -1,0 +1,37 @@
+LD 0 0 ;(2, 2)
+CAR ;x
+LDC 1
+ADD
+LD 0 0
+CDR ;y
+CONS
+
+LD 0 0
+CAR ;x
+LD 0 0 ; (2, 2)
+CDR ;y
+LDC 1
+ADD
+CONS
+
+LD 0 0 ;(2, 2)
+CAR ;x
+LDC 1
+SUB
+LD 0 0
+CDR ;y
+CONS
+
+LD 0 0
+CAR ;x
+LD 0 0 ;(2, 2)
+CDR ;y
+LDC 1
+SUB
+CONS
+
+CONS
+CONS
+CONS
+
+RTN
