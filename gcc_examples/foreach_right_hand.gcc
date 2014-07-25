@@ -1,0 +1,24 @@
+LDC 42 ; start data prep 42, 12, 20
+LDC 12
+LDC 20
+LDC 0
+
+CONS
+CONS
+CONS ; end data prep (42, (12, (20, 0)))
+
+LDF 10 ; launch foreach
+AP 1
+RTN ; end launch foreach
+
+LD 0 0 ; foreach
+ATOM
+TSEL 13 14
+RTN ; rtn
+LD 0 0
+CAR
+LD 0 0
+CDR
+LDF 10
+TAP 1
+
