@@ -5,7 +5,7 @@ The state of the world is encoded as follows:
 1. The map;
     See info in map.md
 2. the status of Lambda-Man;
-      1. Lambda-Man's vitality;
+      1. Lambda-Man's vitality (power pill effect);
       2. Lambda-Man's current location, as an (x,y) pair;
       3. Lambda-Man's current direction;
       4. Lambda-Man's remaining number of lives;

@@ -23,5 +23,4 @@ grid. An enumeration represents the contents of each grid cell:
             ((0, (0, (0, 0))), 0)
         )
     ),
-
 )

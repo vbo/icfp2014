@@ -41,17 +41,17 @@ Commands
 - CONS		    [2st, 1nd]; replace last 2 values
 - CAR		    get 1st elem from the CONS; replace CONS
 - CDR		    get 2nd elem from CONC; replace CONS
-- SEL $t $f	    1st == 0 ? goto $f : goto $t; remove 1st; JOIN can be used after to continue
+- SEL $t $f	    1st != 0 ? goto $f : goto $t; remove 1st; JOIN can be used after to continue
 - JOIN 
 - LDF $f		add function starting from 0, save current pointer
 - AP $n
-- RTN
-- DUM $n
-- RAP $n
+- RTN           
+- DUM $n        Make a dummy func in env (needs to be filled)
+- RAP $n        calls env last closure with $n next params as arguments
 - STOP          end of program
 - TSEL $t $f    like CELL but JOIN is not possible
-- TAP $n
-- TRAP $n
+- TAP $n        launch function in stack with $n arguments
+- TRAP $n       same as RAP but without saving return point
 - ST $n $i
 - DBUG		    echo 1st; remove 1st
 - BRK
