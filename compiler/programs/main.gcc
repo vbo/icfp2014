@@ -3,4 +3,13 @@ LDC 1
 LDC 3
 LDF ADD_OR_SUB
 AP 3
+LDC 42 ; create linked list (rh) - 42, 12, 20
+LDC 12
+LDC 20
+LDC 0
+CONS
+CONS
+CONS
+LDF FOREACH
+AP 1
 STOP
