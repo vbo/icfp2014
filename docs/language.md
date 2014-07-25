@@ -42,11 +42,11 @@ Commands
 - CAR		    get 1st elem from the CONS; replace CONS
 - CDR		    get 2nd elem from CONC; replace CONS
 - SEL $t $f	    1st == 0 ? goto $f : goto $t; remove 1st; JOIN can be used after to continue
-- JOIN 
+- JOIN          Returning from last SEL
 - LDF $f		add function starting from 0, save current pointer
-- AP $n
-- RTN
-- DUM $n
+- AP $n         Call function. $n -  number of arguments in data staсk
+- RTN           RETURN from function(by next inctruction after AP)
+- DUM $n        create empty environment frame
 - RAP $n
 - STOP          end of program
 - TSEL $t $f    like CELL but JOIN is not possible
