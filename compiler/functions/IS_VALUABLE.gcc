@@ -1,0 +1,20 @@
+LD 0 0
+LDC 2 ; check pill
+CEQ
+TSEL $RTN_TRUE $NOT_PILL
+
+LD 0 0 ; $NOT_PILL
+LDC 3 ; check power_pill
+CEQ
+TSEL $RTN_TRUE $NOT_POWER_PILL
+
+LD 0 0 ; $NOT_POWER_PILL
+LDC 4 ; check fruit
+CEQ
+TSEL $RTN_TRUE $RTN_FALSE
+
+LDC 1 ; $RTN_TRUE
+RTN
+
+LDC 0 ; $RTN_FALSE
+RTN

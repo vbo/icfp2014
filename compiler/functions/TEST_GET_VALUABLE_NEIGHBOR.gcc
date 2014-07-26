@@ -1,0 +1,12 @@
+LD 0 1
+LDC 0
+LDF LIST_VAL_AT ; get map from world
+AP 2
+
+LDC 1
+LDC 1
+CONS
+
+LDF GET_VALUABLE_NEIGHBOR
+AP 2
+

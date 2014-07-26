@@ -1,0 +1,96 @@
+LD 0 1 ;(x+1, y) RIGHT POINT
+CAR ;x
+LDC 1
+ADD ; x + 1
+LD 0 1
+CDR ;y
+CONS
+
+LD 0 0 ; get map
+LD 0 1 ;(2, 2) one more time
+CAR ;x
+LDC 1
+ADD ; x + 1
+LD 0 1
+CDR ;y
+CONS
+
+LDF MAP_AT
+AP 2
+LDF IS_VALUABLE
+AP 1
+TSEL $RTN $NOT_RIGHT
+
+RTN ; $RTN
+
+LD 0 1 ; $NOT_RIGHT
+CAR ;x
+LD 0 1 ; (x, y+1) DOWN
+CDR ;y
+LDC 1
+ADD
+CONS
+
+LD 0 0 ; get map
+LD 0 1
+CAR ;x
+LD 0 1 ; (x, y+1) one more time
+CDR ;y
+LDC 1
+ADD
+CONS
+
+LDF MAP_AT
+AP 2
+LDF IS_VALUABLE
+AP 1
+TSEL $RTN $NOT_DOWN
+
+LD 0 1 ; $NOT_DOWN
+CAR ;x
+LDC 1
+SUB
+LD 0 1
+CDR ;y
+CONS
+
+LD 0 0
+LD 0 1 ;(x-1, y) LEFT
+CAR ;x
+LDC 1
+SUB
+LD 0 1
+CDR ;y
+CONS
+
+LDF MAP_AT
+AP 2
+LDF IS_VALUABLE
+AP 1
+TSEL $RTN $NOT_LEFT
+
+LD 0 1 ; $NOT_LEFT
+CAR ;x
+LD 0 1 ;(x, y-1)
+CDR ;y
+LDC 1
+SUB
+CONS
+
+LD 0 0 ; get map
+LD 0 1
+CAR ;x
+LD 0 1 ; (x, y-1) UP
+CDR ;y
+LDC 1
+SUB
+CONS
+
+LDF MAP_AT
+AP 2
+LDF IS_VALUABLE
+AP 1
+TSEL $RTN $RTN_SELF
+
+LD 0 1 ; $RTN_SELF
+RTN
