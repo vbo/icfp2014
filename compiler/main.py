@@ -3,7 +3,7 @@ def replace_function_names(lines, functions):
     for line in lines:
         if line.startswith('LDF'):
             literals = line.split(' ')
-            line = 'LDF ' + str(functions[literals[1]]) + '    ; call ' + unit.name
+            line = 'LDF ' + str(functions[literals[1]]) #+ '    ; call something, probably ' + unit.name  as no unit name here
         result += [line]
     return result
 
@@ -71,7 +71,9 @@ class Program(CompilationUnit):
         self.load_source("programs")
 
 
-compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT')]
+#compilation_units = [Program('test'), Function('LOAD_DATA1')]
+compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
+                    Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ')]
 
 if __name__ == '__main__':
     instruction_no = 0
