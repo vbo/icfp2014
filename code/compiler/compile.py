@@ -14,6 +14,7 @@ GLOBAL_MACRO = {
     # some may be used in test, don't remove
     "MACROS_WORK?": """
         ; do something
+        ADD, SUB
         LD 0 0
     """,
     "up": "0",
@@ -56,7 +57,7 @@ class CompilationUnit(object):
         self.dep_funcs = set()
         self.instructions_count = 0
         for k, v in GLOBAL_MACRO.iteritems():
-            source = source.replace("#" + k, v)
+            source = source.replace("#" + k, "\n".join(v.split(',')))
         lines = source.split("\n")
         for line in lines:
             line = line.strip()
@@ -66,7 +67,7 @@ class CompilationUnit(object):
             if def_match:
                 k = def_match.groups()[0]
                 v = def_match.groups()[1]
-                source = source.replace("#" + k, v)
+                source = source.replace("#" + k, "\n".join(v.split(',')))
         expect_line = False
         has_rtn = False
         line_no = 0

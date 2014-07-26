@@ -19,9 +19,25 @@ AP 3
 ATOM ; test for empty valuable neighs
 TSEL $empty $some
 $empty:
-    ; get neighbors of neighbors
-    ; in particular direction
+    #ld_map
+
+    ; filter walkable neighs
+    #ld_neighbors
+    LDF @neighbor_accum_walkable
     LDC 0
+    LDF @reduce
+    AP 3
+    ; get neighbors of walkable neighbors
+
+    LDF @neighbor_accum_neighbors
+    LDC 0
+    LDF @reduce
+    AP 3
+
+    LDC 0 ; just for local var
+    LDF @map_walk
+    AP 3
+
     RTN
 $some:
     #ld_loc_tasty

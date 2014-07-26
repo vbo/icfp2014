@@ -22,12 +22,13 @@ class PreprocTestCase(unittest.TestCase):
         self.assertEqual(u.instructions_count, 1)
         self.assertEqual(u.lines, ["LD 0 0"])
 
+    def test_macro(self):
         u = CompilationUnit("macro", """
             #MACROS_WORK?
             ; or not?
         """)
-        self.assertEqual(u.instructions_count, 1)
-        self.assertEqual(u.lines, ["LD 0 0"])
+        self.assertEqual(u.instructions_count, 3)
+        self.assertEqual(u.lines, ["ADD", "SUB", "LD 0 0"])
 
         u = CompilationUnit("macro_local", """
             !def local_macro LD 0 2
@@ -36,6 +37,13 @@ class PreprocTestCase(unittest.TestCase):
         """)
         self.assertEqual(u.instructions_count, 1)
         self.assertEqual(u.lines, ["LD 0 2"])
+
+        u = CompilationUnit("macro", """
+            !def loc ADD, ADD
+            #loc
+        """)
+        self.assertEqual(u.instructions_count, 2)
+        self.assertEqual(u.lines, ["ADD", "ADD"])
 
     def test_labels(self):
         u = CompilationUnit("macro", """
