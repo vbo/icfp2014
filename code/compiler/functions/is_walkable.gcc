@@ -1,0 +1,11 @@
+; args: value of map
+; return: value not in ['wall']
+
+!def ld_value LD 0 0
+
+#ld_value
+LDC #wall
+CEQ
+LDC 0
+CEQ
+RTN

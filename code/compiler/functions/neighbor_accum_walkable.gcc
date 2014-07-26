@@ -1,0 +1,22 @@
+; args: cur_neighbor, walkable_neighbor_list
+; reduce should be started with empty rh cons-list
+
+!def ld_el LD 0 0
+!def ld_ac LD 0 1
+
+#ld_el
+CDR
+CAR ; get value of neighbor
+
+LDF @is_walkable
+AP 1
+
+TSEL $walkable $not_walkable
+$walkable:
+    #ld_el
+    #ld_ac
+    CONS
+    RTN
+$not_walkable:
+    #ld_ac
+    RTN
