@@ -1,33 +1,72 @@
-; args: point
-; return: [right_point, down_point, left_point, up_point]
-LD 0 0
+; args: map, point
+; return: [right_point, down_point, left_point, up_point] where point is ((x=0, y=1), (val=3, dir=1))
+
+!def ld_map   LD 0 0
+!def ld_point LD 0 1
+
+#ld_point
 CAR
 #inc ;x+1
-LD 0 0
+#ld_point
 CDR
 CONS
+#ld_map
+LDF @copy1back
+AP 2
+LDF @map_at
+AP 2
+LDC #right
+CONS
+CONS
 
-LD 0 0
+#ld_point
 CAR
-LD 0 0
+#ld_point
 CDR
 #inc ; y+1
 CONS
-
-LD 0 0
-CAR
-#dec ; x-1
-LD 0 0
-CDR
+#ld_map
+LDF @copy1back
+AP 2
+LDF @map_at
+AP 2
+LDC #down
+CONS
 CONS
 
-LD 0 0
+#ld_point
 CAR
-LD 0 0
+#dec ; x-1
+#ld_point
+CDR
+CONS
+#ld_map
+LDF @copy1back
+AP 2
+LDF @map_at
+AP 2
+LDC #left
+CONS
+CONS
+
+#ld_point
+CAR
+#ld_point
 CDR
 #dec ;y-1
 CONS
+#ld_map
+LDF @copy1back
+AP 2
+LDF @map_at
+AP 2
+LDC #up
+CONS
+CONS
 
+LDC 0
+
+CONS
 CONS
 CONS
 CONS

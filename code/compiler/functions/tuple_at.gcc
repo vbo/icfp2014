@@ -2,7 +2,6 @@
 ; args: tuple, index
 ; return: tuple[index]
 
-BRK
 LD 0 1
 
 TSEL $next $RTN ; index != 0

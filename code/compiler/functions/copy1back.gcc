@@ -1,5 +1,6 @@
-; args: value
+; args: value (unused), value
 ; return: 2 values in stack
 LD 0 0
+LD 0 1
 LD 0 0
 RTN

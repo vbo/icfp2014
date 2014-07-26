@@ -9,7 +9,7 @@ $next:
     CDR
     LD 0 1
     #dec
-    LDF LIST_VAL_AT
+    LDF @list_val_at
     TAP 2
 $rtn:
     LD 0 0

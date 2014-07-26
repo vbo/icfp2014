@@ -1,0 +1,20 @@
+; args: 2d_array (map), point
+; return: dir
+
+!def ld_map   LD 0 0
+!def ld_point LD 0 1
+
+#ld_map
+#ld_point
+LDF @get_neighbors
+AP 2
+
+BRK
+LDF @neighbor_accum_valuable
+LDC 0
+
+LDF @reduce
+AP 3
+DBUG
+
+RTN

@@ -1,0 +1,16 @@
+LDF @load_data_bigger
+AP 0
+LDC 0
+LDF @list_val_at
+AP 2
+
+LDC 1
+LDC 1
+CONS
+
+BRK
+LDF @get_neighbors
+AP 2
+RTN
+
+

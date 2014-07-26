@@ -1,5 +1,5 @@
 ; get list, go through, call function for every element and keep some accumulator
-; args: list, function, initial value of accumulator
+; args: list, accumulating function ( cur_el, cur_accum_val -> new_accum_val ), initial value of accumulator
 ; return: final value of accumulator
 
 LD 0 0
@@ -17,7 +17,6 @@ $next:
     LD 0 1
     LD 0 2
     LDF @reduce
-    BRK
     TAP 3
 $ret:
     LD 0 2
