@@ -3,6 +3,8 @@ import unittest
 from .. compile import CompilationUnit
 from .. compile import Error
 
+CompilationUnit.ALLOW_NO_RTN = True
+
 
 class PreprocTestCase(unittest.TestCase):
 
@@ -25,7 +27,7 @@ class PreprocTestCase(unittest.TestCase):
             ; or not?
         """)
         self.assertEqual(u.instructions_count, 1)
-        self.assertEqual(u.lines, ["YEP"])
+        self.assertEqual(u.lines, ["LD 0 0"])
 
     def test_labels(self):
         u = CompilationUnit("macro", """
@@ -40,6 +42,18 @@ class PreprocTestCase(unittest.TestCase):
             u = CompilationUnit("expected_line", """
                 LD 0 0
                 $lab1:
+            """)
+            self.fail("Exception expected")
+        except Error as e:
+            pass
+
+        try:
+            u = CompilationUnit("redefine_label", """
+                LD 0 0
+                $lab1:
+                    LDC 0
+                $lab1:
+                    LDC 1
             """)
             self.fail("Exception expected")
         except Error as e:

@@ -2,12 +2,19 @@ import sys
 import os.path
 import re
 
+from . import gcc
+
+# %something macro
+# $something: define label, $something - use label
+# @something call external func
+
+
 # use %something to access macro
 macros = {
     # some may be used in test, don't remove
     "MACROS_WORK?": """
         ; do something
-        YEP
+        LD 0 0
     """,
     "up": "0",
     "right": "1",
@@ -37,6 +44,7 @@ class Error(Exception):
 
 class CompilationUnit(object):
 
+    ALLOW_NO_RTN = False
     EOI_RE = r"(?:$|;.*)"
 
     def __init__(self, name, source):
@@ -49,6 +57,7 @@ class CompilationUnit(object):
             source = source.replace("#" + k, v)
         self.lines = []
         expect_line = False
+        has_rtn = False
         for line in source.split("\n"):
             line = line.strip()
             if not line or line.startswith(';'):
@@ -56,6 +65,9 @@ class CompilationUnit(object):
             label_match = re.match(r'\$(\w+):' + self.EOI_RE, line)
             if label_match:
                 label_name = label_match.groups()[0]
+                if label_name in self.labels:
+                    raise Error("Duplicate label %s - redefined (line_no: %s, unit: %s)" % (
+                        label_name, self.instructions_count, self.name))
                 self.labels[label_name] = self.instructions_count
                 expect_line = True
                 continue
@@ -63,12 +75,22 @@ class CompilationUnit(object):
             if dep_call_match:
                 dep_name = dep_call_match.groups()[0]
                 self.dep_funcs.add(dep_name)
-                # do not continue - it's just a normal line
+                # do not exec continue - it's just a normal line
+            instr_match = re.match(r'(\w+).*', line)
+            if not instr_match:
+                raise Error("Bad line: |%s| (line_no: %s, unit: %s)" % (line, self.instructions_count, self.name))
+            instr = instr_match.groups()[0]
+            if instr not in gcc.instructions:
+                raise Error("No such instruction: |%s| (line: %s, line_no: %s, unit: %s)" % (instr, line, self.instructions_count, self.name))
+            if instr == "RTN":
+                has_rtn = True
             expect_line = False
             self.lines.append(line)
             self.instructions_count += 1
         if expect_line:
             raise Error("Expected line after '%s'" % (self.lines[-1]))
+        if not self.ALLOW_NO_RTN and not has_rtn:
+            raise Error("RTN required at unit: %s" % (self.name,))
 
     def generate_code(self, code_ref, dep_refs):
         code = "\n".join(self.lines)
@@ -125,9 +147,11 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
         print "Usage: %s <progname>" % sys.argv[0]
         exit()
+
     script = os.path.realpath(sys.argv[0])
     root = os.path.dirname(script)
     unit_from_file.source_root = root
     comp = Linker(unit_from_file)
     code = comp.link(unit_from_file("programs", sys.argv[1]))
     print code
+
