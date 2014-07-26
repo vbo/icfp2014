@@ -9,12 +9,24 @@
 LDF @get_neighbors
 AP 2
 
-BRK
 LDF @neighbor_accum_valuable
 LDC 0
 
 LDF @reduce
 AP 3
-DBUG
 
-RTN
+LDF @copy
+AP 1
+
+ATOM ; test for empty valuable neighs
+TSEL $empty $some
+$empty:
+    ; get neighbors of neighbors
+    ; in particular direction
+    LDC 0
+    RTN
+$some:
+    CAR
+    CDR
+    CDR
+    RTN

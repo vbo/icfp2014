@@ -1,0 +1,63 @@
+; args: state, world
+; return: [new_state, direction]
+
+LD 0 1 ; world
+LDC 1
+LDC 1
+CONS
+LDF @map_at ; get cur player coords to use as AI state
+AP 2
+
+LD 0 1
+LDC 1
+LDC 1
+CONS
+LDF @map_at ; player cur coords to test for same point
+AP 2
+
+LD 0 0 ; get last point
+LDF @points_eq ; test player on the same point as before
+AP 2
+
+TSEL $change_direction $go_on
+$change_direction:
+    LD 0 1
+    LDC 2
+    LDC 1
+    CONS
+    LDF @map_at ; get player direction to be used in GET_NEXT_DIRECTION
+    AP 2
+    LDF @get_next_direction
+    AP 1
+    CONS ; pair of current player coords and new direction
+    RTN
+$go_on:
+    LD 0 1
+    LDC 1
+    LDC 1
+    CONS
+    LDF @map_at ; get cur player coords (to call dir_from_to)
+    AP 2
+
+    LD 0 1
+    LDC 0
+    LDF @list_val_at ; get map from world
+    AP 2
+
+    LD 0 1
+    LDC 1
+    LDC 1
+    CONS
+    LDF @map_at ; get player coords (to call valuable neighbor)
+    AP 2
+
+    LDF @get_valuable_neighbor
+    AP 2
+
+    LD 0 1
+
+    LDF @dir_to_valuable_neighbor
+    AP 2
+
+    CONS ; pair of current player coords and new direction
+    RTN
