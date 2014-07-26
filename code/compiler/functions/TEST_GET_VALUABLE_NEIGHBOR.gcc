@@ -4,13 +4,13 @@
 
 LD 0 1 ; world
 LDC 0
-LDF LIST_VAL_AT ; get map from world
+LDF @list_val_at ; get map from world
 AP 2
 
 LDC 1
 LDC 1
 CONS ; point to search for valuables
 
-LDF GET_VALUABLE_NEIGHBOR
+LDF @get_valuable_neighbor
 AP 2
 RTN
