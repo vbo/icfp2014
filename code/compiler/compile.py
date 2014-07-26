@@ -4,12 +4,11 @@ import re
 
 from . import gcc
 
-# %something macro
+# #something macro
 # $something: define label, $something - use label
 # @something call external func
 
 
-# use %something to access macro
 macros = {
     # some may be used in test, don't remove
     "MACROS_WORK?": """
