@@ -1,0 +1,24 @@
+; tuple might not have zero as the last value, structure with last 0 is list
+; args: tuple, index
+; return: tuple[index]
+
+LD 0 1 ; index
+
+TSEL $NEXT $RTN ; index != 0
+    LD 0 0 ; $NEXT
+    CDR
+    LD 0 1
+    LDC 1
+    SUB
+    LDF TUPLE_AT
+    TAP 2
+
+    LD 0 0 ; $RTN
+    ATOM
+    TSEL $RTN $CAR_AND_RTN
+        LD 0 0 ; $RTN
+        RTN
+
+        LD  0 0 ; $CAR_AND_RTN
+        CAR
+        RTN

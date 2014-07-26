@@ -80,52 +80,51 @@ class Program(CompilationUnit):
 
 
 #compilation_units = [Program('test'), Function('LOAD_DATA1')]
-#compilation_units = [Program('TEST'), Function('IS_VALUABLE'), Function('GET_VALUABLE_NEIGHBOR'), Function('MAP_AT'),
-#                     Function('TEST_GET_VALUABLE_NEIGHBOR'), Function('LIST_VAL_AT'), Function('LOAD_DATA1')]
-compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
-                    Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ'), Function("GET_VALUABLE_NEIGHBOR"),
-                    Function('IS_VALUABLE'), Function('DIR_FROM_TO'), Function('DIR_TO_VALUABLE_NEIGHBOR')]
-                     #Function('TEST_GET_VALUABLE_NEIGHBOR'), Function('LIST_VAL_AT'), Function('LOAD_DATA1')]
+compilation_units = [Program('TEST_TUPLE_AT'), Function('TEST_LOAD_TUPLE'), Function('TUPLE_AT')]
+#compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
+                    #Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ'), Function("GET_VALUABLE_NEIGHBOR"),
+                    #Function('IS_VALUABLE'), Function('DIR_FROM_TO'), Function('DIR_TO_VALUABLE_NEIGHBOR')]
+                    #Function('TEST_GET_VALUABLE_NEIGHBOR'), Function('LIST_VAL_AT'), Function('LOAD_DATA1')]
 #compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
                     #Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ')]
 
-compilation_units = [
-        Program(
-            'test',
-            """
-                LDF TEST_LOAD_GHOSTS
-                AP 0
-                LDC 8
-                LDC 10
-                CONS
-                BRK
-                LDF IS_DANGER
-                AP 2
-                STOP
-            """
-        ),
-        Function(
-            'TEST_LOAD_GHOSTS'
-        ),
-        Function(
-            'FOREACH'
-        ),
-        Function(
-            'FOREACH3'
-        ),
-        Function(
-            'ABS_SUB'
-        ),
-        Function(
-            'IS_CLOSE'
-        ),
-        Function(
-            'IS_DANGER'
-        ),
-        Function(
-            'IS_DANGER_ONE_GHOST'
-        ),
-]
+#compilation_units = [
+#        Program(
+#            'test',
+#            """
+#                LDF TEST_LOAD_GHOSTS
+#                AP 0
+#                LDC 8
+#                LDC 10
+#                CONS
+#                BRK
+#                LDF IS_DANGER
+#                AP 2
+#                STOP
+#            """
+#        ),
+#        Function(
+#            'TEST_LOAD_GHOSTS'
+#        ),
+#        Function(
+#            'FOREACH'
+#        ),
+#        Function(
+#            'FOREACH3'
+#        ),
+#        Function(
+#            'ABS_SUB'
+#        ),
+#        Function(
+#            'IS_CLOSE'
+#        ),
+#        Function(
+#            'IS_DANGER'
+#        ),
+#        Function(
+#            'IS_DANGER_ONE_GHOST'
+#        ),
+#]
 
 if __name__ == '__main__':
     instruction_no = 0

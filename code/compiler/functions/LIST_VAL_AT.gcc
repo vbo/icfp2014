@@ -1,5 +1,6 @@
-; args: array, index
-; return: array[index]
+; list always has 0 as the last value, structure without last 0 is tuple
+; args: list, index
+; return: list[index]
 
 LD 0 1 ; index
 

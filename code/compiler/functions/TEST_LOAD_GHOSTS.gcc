@@ -1,5 +1,5 @@
 ; used to load test ghost data in the data_stack
-; return: world.ghost
+; no args, return: world.ghost
 
 LDC 0
 LDC 11
@@ -7,7 +7,7 @@ LDC 8
 CONS
 LDC 2
 CONS
-CONS
+CONS ; (0, ((11, 8), 2))
 
 LDC 0
 LDC 10
@@ -15,7 +15,7 @@ LDC 10
 CONS
 LDC 2
 CONS
-CONS
+CONS ; (0, ((10, 10), 2))
 
 LDC 0
 LDC 11
@@ -23,7 +23,7 @@ LDC 10
 CONS
 LDC 2
 CONS
-CONS
+CONS ; (0, ((11, 10), 2))
 
 LDC 0
 LDC 12
@@ -31,7 +31,7 @@ LDC 10
 CONS
 LDC 2
 CONS
-CONS
+CONS ; (0, ((12, 10), 2))
 
 LDC 0
 CONS

@@ -1,0 +1,261 @@
+LDC -1
+LDC -1
+CONS ; initial AI state: some point where player can not be on start
+LDF 6
+CONS
+RTN
+LD 0 1 ; world    ; def STEP
+LDC 1
+LDC 1
+CONS
+LDF 55
+AP 2
+LD 0 1
+LDC 1
+LDC 1
+CONS
+LDF 55
+AP 2
+LD 0 0 ; get last point
+LDF 97
+AP 2
+TSEL 22 32
+LD 0 1 ; $CHANGE_DIRECTION
+LDC 2
+LDC 1
+CONS
+LDF 55
+AP 2
+LDF 77
+AP 1
+CONS ; pair of current player coords and new direction
+RTN
+LD 0 1 ; $GO_ON
+LDC 1
+LDC 1
+CONS
+LDF 55
+AP 2
+LD 0 1
+LDC 0
+LDF 65
+AP 2
+LD 0 1
+LDC 1
+LDC 1
+CONS
+LDF 55
+AP 2
+LDF 113
+AP 2
+LD 0 1
+LDF 241
+AP 2
+CONS ; pair of current player coords and new direction
+RTN
+LD 0 0 ; map    ; def MAP_AT
+LD 0 1 ; pos
+CDR    ; pos.y
+LDF 65
+AP 2
+LD 0 1 ; pos
+CAR    ; pos.x
+LDF 65
+AP 2
+RTN
+LD 0 1 ; index    ; def LIST_VAL_AT
+TSEL 67 74 ; index != 0
+LD 0 0 ; $NEXT
+CDR
+LD 0 1
+LDC 1
+SUB
+LDF 65
+TAP 2
+LD 0 0 ; $RTN
+CAR
+RTN
+LD 0 0 ; orig dir    ; def GET_NEXT_DIRECTION
+LDC 0
+CEQ
+TSEL 81 83
+LDC 1 ; $RTN_RIGHT
+RTN
+LD 0 0 ; $NOT_UP
+LDC 2
+CEQ
+TSEL 87 89
+LDC 3 ; $RTN_LEFT
+RTN
+LD 0 0 ; $NOT_DOWN
+LDC 1
+CEQ
+TSEL 93 95
+LDC 0 ; $RTN_UP
+RTN
+LDC 2 ; $RTN_DOWN
+RTN
+LD 0 0    ; def POINTS_EQ
+CAR
+LD 0 1
+CAR
+CEQ
+TSEL 103 111
+LD 0 0 ; $CMRY
+CDR
+LD 0 1
+CDR
+CEQ
+TSEL 109 111
+LDC 1 ; $RTN1
+RTN
+LDC 0 ; $RTN0
+RTN
+LD 0 0 ; get map    ; def GET_VALUABLE_NEIGHBOR
+LD 0 1
+CAR
+LDC 1
+ADD
+LD 0 1
+CDR
+CONS ; getting point on the right
+LDF 55
+AP 2
+LDF 199
+AP 1
+TSEL 126 134
+LD 0 1 ; $RTN_RIGHT
+CAR
+LDC 1
+ADD
+LD 0 1
+CDR
+CONS ; getting point on the right of interesting
+RTN
+LD 0 0 ; $NOT_RIGHT
+LD 0 1
+CAR
+LD 0 1
+CDR
+LDC 1
+ADD
+CONS ; point on down
+LDF 55
+AP 2
+LDF 199
+AP 1
+TSEL 147 155
+LD 0 1 ; $RTN_DOWN
+CAR
+LD 0 1
+CDR
+LDC 1
+ADD
+CONS
+RTN
+LD 0 0 ; $NOT_DOWN
+LD 0 1
+CAR
+LDC 1
+SUB
+LD 0 1
+CDR
+CONS ; point on the left
+LDF 55
+AP 2
+LDF 199
+AP 1
+TSEL 168 176
+LD 0 1 ; $RTN_LEFT
+CAR
+LDC 1
+SUB
+LD 0 1
+CDR
+CONS ; point on the left
+RTN
+LD 0 0 ; $NOT_LEFT
+LD 0 1
+CAR
+LD 0 1
+CDR
+LDC 1
+SUB
+CONS ; point on up
+LDF 55
+AP 2
+LDF 199
+AP 1
+TSEL 189 197
+LD 0 1 ; $RTN_UP
+CAR
+LD 0 1
+CDR
+LDC 1
+SUB
+CONS ; point on up
+RTN
+LDC 0 ; $RTN_NUL
+RTN
+LD 0 0    ; def IS_VALUABLE
+LDC 2 ; check pill
+CEQ
+TSEL 211 203
+LD 0 0 ; $NOT_PILL
+LDC 3 ; check power_pill
+CEQ
+TSEL 211 207
+LD 0 0 ; $NOT_POWER_PILL
+LDC 4 ; check fruit
+CEQ
+TSEL 211 213
+LDC 1 ; $RTN_TRUE
+RTN
+LDC 0 ; $RTN_FALSE
+RTN
+LD 0 0 ; from    ; def DIR_FROM_TO
+CAR ; x1
+LD 0 1 ; to
+CAR ; x2
+CGT ; x1 > x2
+TSEL 221 223
+LDC 3 ; $LEFT
+RTN
+LD 0 1 ; $NOT_LEFT
+CAR
+LD 0 0
+CAR
+CGT ; x2 > x1
+TSEL 229 231
+LDC 1 ; $RIGHT
+RTN
+LD 0 0 ; $NOT_RIGHT
+CDR
+LD 0 1
+CDR
+CGT ; y1 > y2
+TSEL 237 239
+LDC 0 ; $UP
+RTN
+LDC 2 ; $DOWN
+RTN
+LD 0 0 ; args: neighbour, world    ; def DIR_TO_VALUABLE_NEIGHBOR
+ATOM
+TSEL 244 251
+LD 0 1 ; $RTN_ORIG
+LDC 2
+LDC 1
+CONS
+LDF 55
+AP 2
+RTN
+LD 0 1 ; $RTN_DIR_TO
+LDC 1
+LDC 1
+CONS
+LDF 55
+AP 2
+LD 0 0
+LDF 215
+AP 2
+RTN
