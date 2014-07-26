@@ -21,7 +21,7 @@ class PreprocTestCase(unittest.TestCase):
         self.assertEqual(u.lines, ["LD 0 0"])
 
         u = CompilationUnit("macro", """
-            %MACROS_WORK?
+            #MACROS_WORK?
             ; or not?
         """)
         self.assertEqual(u.instructions_count, 1)

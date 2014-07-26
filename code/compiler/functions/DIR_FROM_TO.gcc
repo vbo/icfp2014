@@ -6,24 +6,30 @@ LD 0 1 ; to
 CAR ; x2
 
 CGT ; x1 > x2
-TSEL $LEFT $NOT_LEFT
-    LDC 3 ; $LEFT
+TSEL $left $not_left
+$left:
+    LDC #left
     RTN
-    LD 0 1 ; $NOT_LEFT
+$not_left:
+    LD 0 1
     CAR
     LD 0 0
     CAR
     CGT ; x2 > x1
-    TSEL $RIGHT $NOT_RIGHT
-        LDC 1 ; $RIGHT
-        RTN
-        LD 0 0 ; $NOT_RIGHT
-        CDR
-        LD 0 1
-        CDR
-        CGT ; y1 > y2
-        TSEL $UP $DOWN
-            LDC 0 ; $UP
-            RTN
-            LDC 2 ; $DOWN
-            RTN
+    TSEL $right $not_right
+$right:
+    LDC #right
+    RTN
+$not_right:
+    LD 0 0
+    CDR
+    LD 0 1
+    CDR
+    CGT ; y1 > y2
+    TSEL $up $down
+$up:
+    LDC #up
+    RTN
+$down:
+    LDC #down
+    RTN

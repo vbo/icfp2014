@@ -80,11 +80,11 @@ class Program(CompilationUnit):
 
 
 #compilation_units = [Program('test'), Function('LOAD_DATA1')]
-compilation_units = [Program('TEST_TUPLE_AT'), Function('TEST_LOAD_TUPLE'), Function('TUPLE_AT'), Function('LIST_VAL_AT')]
-#compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
-                    #Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ'), Function("GET_VALUABLE_NEIGHBOR"),
-                    #Function('IS_VALUABLE'), Function('DIR_FROM_TO'), Function('DIR_TO_VALUABLE_NEIGHBOR')]
-                    #Function('TEST_GET_VALUABLE_NEIGHBOR'), Function('LIST_VAL_AT'), Function('LOAD_DATA1')]
+#compilation_units = [Program('TEST_TUPLE_AT'), Function('TEST_LOAD_TUPLE'), Function('TUPLE_AT')]
+compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
+                    Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ'), Function("GET_VALUABLE_NEIGHBOR"),
+                    Function('IS_VALUABLE'), Function('DIR_FROM_TO'), Function('DIR_TO_VALUABLE_NEIGHBOR')]
+#                   Function('TEST_GET_VALUABLE_NEIGHBOR'), Function('LIST_VAL_AT'), Function('LOAD_DATA1')]
 #compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
                     #Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ')]
 

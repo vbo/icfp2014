@@ -9,9 +9,27 @@ macros = {
         ; do something
         YEP
     """,
-    "one": "1"
-}
+    "up": "0",
+    "right": "1",
+    "down": "2",
+    "left": "3",
 
+    "wall": "0",
+    "empty": "1",
+    "pill": "2",
+    "power_pill": "3",
+    "fruit": "4",
+    "lambda_start": "5",
+    "ghost_start": "6",
+    "inc": """
+        LDC 1
+        ADD
+    """,
+    "dec": """
+        LDC 1
+        SUB
+    """
+}
 
 class Error(Exception):
     pass
@@ -28,7 +46,7 @@ class CompilationUnit(object):
         self.dep_funcs = set()
         self.instructions_count = 0
         for k, v in macros.iteritems():
-            source = source.replace("%" + k, v)
+            source = source.replace("#" + k, v)
         self.lines = []
         expect_line = False
         for line in source.split("\n"):

@@ -3,24 +3,25 @@
 ; return: direction (0,1,2,3)
 LD 0 0
 ATOM
-TSEL $RTN_ORIG $RTN_DIR_TO
-    LD 0 1 ; $RTN_ORIG
+TSEL $rtn_orig $rtn_dir_to
+$rtn_orig:
+    LD 0 1
     LDC 2
     LDC 1
     CONS
     LDF MAP_AT
     AP 2
     RTN
-
-    LD 0 1 ; $RTN_DIR_TO
+$rtn_dir_to:
+    LD 0 1
     LDC 1
     LDC 1
     CONS
-    LDF MAP_AT
+    LDF @map_at
     AP 2
 
     LD 0 0
 
-    LDF DIR_FROM_TO
+    LDF @dir_from_to
     AP 2
     RTN

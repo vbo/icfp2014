@@ -1,7 +1,6 @@
 LDF TEST_LOAD_TUPLE
 AP 0
 LDC 3 ; index
-LDC 4 ; size
 LDF TUPLE_AT
-AP 3
+AP 2
 RTN

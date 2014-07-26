@@ -1,15 +1,19 @@
+; args: num1, num2
+; returns |num2 - num1|
 LDC 0
 LD 0 0 ; first
 LD 0 1 ; second
 SUB
 CGT
-SEL $LESS_ZERO $GREATER_ZERO
+SEL $less_zero $greater_zero
 RTN
-LD 0 1 ; $LESS_ZERO
-LD 0 0
-SUB
-JOIN
-LD 0 0 ; $GREATER_ZERO
-LD 0 1
-SUB
-JOIN
+$less_zero:
+    LD 0 1
+    LD 0 0
+    SUB
+    JOIN
+$greater_zero:
+    LD 0 0
+    LD 0 1
+    SUB
+    JOIN

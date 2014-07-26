@@ -3,8 +3,8 @@
 LDC 0
 LDC 11
 LDC 8
-CONS
 LDC 2
 CONS
-CONS ; (0, ((11, 8), 2))
+CONS
+CONS ; (0, (11, (8, 2))
 RTN

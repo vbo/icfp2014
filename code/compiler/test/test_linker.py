@@ -65,7 +65,7 @@ class LinkerTestCase(unittest.TestCase):
 
         sources = {
             "main": """
-                LDC %one
+                LDC 1
                 LDC 4
                 ; bla bla
                 ; hello world!

@@ -1,56 +1,262 @@
-LDF 7
-AP 0
-LDC 3 ; index
-LDC 4 ; size
-LDF 17
-AP 3
-RTN
-; loads some dummy tuple    ; def TEST_LOAD_TUPLE
-; no args, returns dummy_tuple, size = 4
-LDC 0
-LDC 11
-LDC 8
+LDC -1
+LDC -1
+CONS ; initial AI state: some point where player can not be on start
+LDF 6
 CONS
+RTN
+LD 0 1 ; world
+LDC 1
+LDC 1
+CONS
+LDF 57
+AP 2
+LD 0 1
+LDC 1
+LDC 1
+CONS
+LDF 57
+AP 2
+LD 0 0 ; get last point
+LDF 106
+AP 2
+TSEL 24 34
+LD 0 1 ; $CHANGE_DIRECTION
 LDC 2
+LDC 1
 CONS
-CONS ; (0, ((11, 8), 2))
+LDF 57
+AP 2
+LDF 84
+AP 1
+CONS ; pair of current player coords and new direction
 RTN
-; tuple might not have zero as the last value, structure with last 0 is list    ; def TUPLE_AT
-; args: tuple, index, size
-; return: tuple[index]
-LD 0 1 ; will be used later
+LD 0 1 ; $GO_ON
+LDC 1
+LDC 1
+CONS
+LDF 57
+AP 2
 LD 0 1
-TSEL 23 30 ; index != 0
-LD 0 0 ; $NEXT
-CDR
+LDC 0
+LDF 69
+AP 2
 LD 0 1
 LDC 1
-SUB
-LDF 40
-TAP 2
-LD 0 2 ; $RTN
-CEQ
-TSEL 33 36
-LD 0 0 ; $CDR_RET
-CDR
+LDC 1
+CONS
+LDF 57
+AP 2
+LDF 124
+AP 2
+LD 0 1
+LDF 258
+AP 2
+CONS ; pair of current player coords and new direction
 RTN
-LD 0 0 ; $CAR_RET
-CAR
-CAR
+LD 0 0 ; map
+LD 0 1 ; pos
+CDR    ; pos.y
+LDF 69
+AP 2
+LD 0 1 ; pos
+CAR    ; pos.x
+LDF 69
+AP 2
 RTN
-; list always has 0 as the last value, structure without last 0 is tuple    ; def LIST_VAL_AT
-; args: list, index
-; return: list[index]
 LD 0 1 ; index
-TSEL 45 52 ; index != 0
+TSEL 74 81 ; index != 0
 LD 0 0 ; $NEXT
 CDR
 LD 0 1
 LDC 1
 SUB
-LDF 40
+LDF 69
 TAP 2
 LD 0 0 ; $RTN
 CAR
+RTN
+LD 0 0
+LDC 0
+CEQ
+TSEL 90 92
+LDC 1 ; $RTN_RIGHT
+RTN
+LD 0 0 ; $NOT_UP
+LDC 2
+CEQ
+TSEL 96 98
+LDC 3 ; $RTN_LEFT
+RTN
+LD 0 0 ; $NOT_DOWN
+LDC 1
+CEQ
+TSEL 102 104
+LDC 0 ; $RTN_UP
+RTN
+LDC 2 ; $RTN_DOWN
+RTN
+LD 0 0
+CAR
+LD 0 1
+CAR
+CEQ
+TSEL 114 122
+LD 0 0 ; $CMRY
+CDR
+LD 0 1
+CDR
+CEQ
+TSEL 120 122
+LDC 1 ; $RTN1
+RTN
+LDC 0 ; $RTN0
+RTN
+LD 0 0 ; get map
+LD 0 1
+CAR
+LDC 1
+ADD
+LD 0 1
+CDR
+CONS ; getting point on the right
+LDF 57
+AP 2
+LDF 212
+AP 1
+TSEL 139 147
+LD 0 1 ; $RTN_RIGHT
+CAR
+LDC 1
+ADD
+LD 0 1
+CDR
+CONS ; getting point on the right of interesting
+RTN
+LD 0 0 ; $NOT_RIGHT
+LD 0 1
+CAR
+LD 0 1
+CDR
+LDC 1
+ADD
+CONS ; point on down
+LDF 57
+AP 2
+LDF 212
+AP 1
+TSEL 160 168
+LD 0 1 ; $RTN_DOWN
+CAR
+LD 0 1
+CDR
+LDC 1
+ADD
+CONS
+RTN
+LD 0 0 ; $NOT_DOWN
+LD 0 1
+CAR
+LDC 1
+SUB
+LD 0 1
+CDR
+CONS ; point on the left
+LDF 57
+AP 2
+LDF 212
+AP 1
+TSEL 181 189
+LD 0 1 ; $RTN_LEFT
+CAR
+LDC 1
+SUB
+LD 0 1
+CDR
+CONS ; point on the left
+RTN
+LD 0 0 ; $NOT_LEFT
+LD 0 1
+CAR
+LD 0 1
+CDR
+LDC 1
+SUB
+CONS ; point on up
+LDF 57
+AP 2
+LDF 212
+AP 1
+TSEL 202 210
+LD 0 1 ; $RTN_UP
+CAR
+LD 0 1
+CDR
+LDC 1
+SUB
+CONS ; point on up
+RTN
+LDC 0 ; $RTN_NUL
+RTN
+LD 0 0
+LDC 2 ; check pill
+CEQ
+TSEL 226 218
+LD 0 0 ; $NOT_PILL
+LDC 3 ; check power_pill
+CEQ
+TSEL 226 222
+LD 0 0 ; $NOT_POWER_PILL
+LDC 4 ; check fruit
+CEQ
+TSEL 226 228
+LDC 1 ; $RTN_TRUE
+RTN
+LDC 0 ; $RTN_FALSE
+RTN
+LD 0 0 ; from
+CAR ; x1
+LD 0 1 ; to
+CAR ; x2
+CGT ; x1 > x2
+TSEL 238 240
+LDC 3 ; $LEFT
+RTN
+LD 0 1 ; $NOT_LEFT
+CAR
+LD 0 0
+CAR
+CGT ; x2 > x1
+TSEL 246 248
+LDC 1 ; $RIGHT
+RTN
+LD 0 0 ; $NOT_RIGHT
+CDR
+LD 0 1
+CDR
+CGT ; y1 > y2
+TSEL 254 256
+LDC 0 ; $UP
+RTN
+LDC 2 ; $DOWN
+RTN
+LD 0 0
+ATOM
+TSEL 264 271
+LD 0 1 ; $RTN_ORIG
+LDC 2
+LDC 1
+CONS
+LDF 57
+AP 2
+RTN
+LD 0 1 ; $RTN_DIR_TO
+LDC 1
+LDC 1
+CONS
+LDF 57
+AP 2
+LD 0 0
+LDF 230
+AP 2
 RTN
  

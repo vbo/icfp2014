@@ -2,8 +2,7 @@
 ; return: [right_point, down_point, left_point, up_point]
 LD 0 0
 CAR
-LDC 1
-ADD ; x+1
+#inc ;x+1
 LD 0 0
 CDR
 CONS
@@ -12,14 +11,12 @@ LD 0 0
 CAR
 LD 0 0
 CDR
-LDC 1
-ADD  ; y+1
+#inc ; y+1
 CONS
 
 LD 0 0
 CAR
-LDC 1
-SUB ; x-1
+#dec ; x-1
 LD 0 0
 CDR
 CONS
@@ -28,8 +25,7 @@ LD 0 0
 CAR
 LD 0 0
 CDR
-LDC 1
-SUB ;y-1
+#dec ;y-1
 CONS
 
 CONS
