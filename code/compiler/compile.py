@@ -2,7 +2,7 @@ import sys
 import os.path
 import re
 
-from . import gcc
+import gcc
 
 # #something macro
 # $something: define label, $something - use label

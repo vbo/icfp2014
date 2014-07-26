@@ -26,7 +26,7 @@ $far:
     LDF @abs_sub
     AP 2
     CGT
-    SEL $2CLOSE $2FAR
+    SEL $2close $2far
     JOIN
 $2close:
     LDC 1

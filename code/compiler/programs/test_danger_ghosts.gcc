@@ -1,0 +1,10 @@
+LDF @test_load_ghosts
+AP 0
+LDC 8
+LDC 10
+CONS
+BRK
+LDF @is_danger
+AP 2
+RTN
+
