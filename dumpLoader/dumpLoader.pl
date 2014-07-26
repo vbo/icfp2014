@@ -3,7 +3,6 @@
 use strict;
 use warnings;
 use Data::Dumper;
-use YAML::Syck qw(LoadFile);
 
 open(my $F, '<', 'file.in');
 my $fileContent;
