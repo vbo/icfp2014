@@ -5,21 +5,22 @@
 BRK
 LD 0 1
 
-TSEL $NEXT $RTN ; index != 0
-    LD 0 0 ; $NEXT
+TSEL $next $RTN ; index != 0
+$next:
+    LD 0 0
     CDR
     LD 0 1
-    LDC 1
-    SUB
-    LDF TUPLE_AT
+    #dec
+    LDF @tuple_at
     TAP 2
-
-    LD 0 0 ; $RTN
+$rtn:
+    LD 0 0
     ATOM
-    TSEL $RET_VAL $RET_CAR
-        LD 0 0 ; $RET_VAL
-        RTN
-
-        LD 0 0 ; $RET_CAR
-        CAR
-        RTN
+    TSEL $ret_val $ret_car
+$ret_val:
+    LD 0 0
+    RTN
+$ret_car:
+    LD 0 0
+    CAR
+    RTN
