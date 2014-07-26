@@ -13,18 +13,17 @@ binmode($F);
  $fileContent = <$F>;
 }
 close($F);
+
 $fileContent =~ s/\(/\[/g;
 $fileContent =~ s/\)/\]/g;
-$fileContent =~ s/^/var: /;
-open(OUTY, '>', 'file.yaml');
-print OUTY $fileContent;
-close(OUTY);
-open(OUT, '>', 'file.out');
-my $hash = LoadFile("file.yaml");
-my $mas_array = $hash->{var};
-pars_array($mas_array);
+$fileContent =~ s/^/\$mas_array=/;
+my $mas_array;
+eval($fileContent);
 
+open(OUT, '>', 'file.out');
+pars_array($mas_array);
 print OUT "CONS\n";
+
 sub pars_array {
     my $mas = shift;
     for(@$mas) {
@@ -38,4 +37,3 @@ sub pars_array {
     return;
 }
 close(OUT);
-system 'rm file.yaml';
