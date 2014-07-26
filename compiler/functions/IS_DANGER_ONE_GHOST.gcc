@@ -1,0 +1,9 @@
+LD 0 0
+CDR
+CAR
+LD 1 1 ; point
+LDF IS_CLOSE
+AP 2
+ADD
+RTN
+
