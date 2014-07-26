@@ -71,7 +71,8 @@ class Program(CompilationUnit):
         self.load_source("programs")
 
 
-compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT')]
+compilation_units = [Program('test'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
+                     Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ'), Function('LOAD_DATA1')]
 
 if __name__ == '__main__':
     instruction_no = 0
