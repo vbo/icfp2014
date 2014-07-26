@@ -38,6 +38,7 @@ GLOBAL_MACRO = {
     """
 }
 
+
 class Error(Exception):
     pass
 
@@ -57,7 +58,6 @@ class CompilationUnit(object):
         for k, v in GLOBAL_MACRO.iteritems():
             source = source.replace("#" + k, v)
         lines = source.split("\n")
-        local_macro = {}
         for line in lines:
             line = line.strip()
             if not line.startswith('!'):
@@ -69,7 +69,9 @@ class CompilationUnit(object):
                 source = source.replace("#" + k, v)
         expect_line = False
         has_rtn = False
+        line_no = 0
         for line in source.split("\n"):
+            line_no += 1
             line = line.strip()
             if not line or line.startswith(';') or line.startswith('!'):
                 continue
@@ -77,8 +79,8 @@ class CompilationUnit(object):
             if label_match:
                 label_name = label_match.groups()[0]
                 if label_name in self.labels:
-                    raise Error("Duplicate label %s - redefined (line_no: %s, unit: %s)" % (
-                        label_name, self.instructions_count, self.name))
+                    raise Error("Duplicate label $%s (line_no: %s, unit: %s)" % (
+                        label_name, line_no, self.name))
                 self.labels[label_name] = self.instructions_count
                 expect_line = True
                 continue
@@ -89,10 +91,11 @@ class CompilationUnit(object):
                 # do not exec continue - it's just a normal line
             instr_match = re.match(r'(\w+).*', line)
             if not instr_match:
-                raise Error("Bad line: |%s| (line_no: %s, unit: %s)" % (line, self.instructions_count, self.name))
+                raise Error("Bad line: |%s| (line_no: %s, unit: %s)" % (line, line_no, self.name))
             instr = instr_match.groups()[0]
             if instr not in gcc.instructions:
-                raise Error("No such instruction: |%s| (line: %s, line_no: %s, unit: %s)" % (instr, line, self.instructions_count, self.name))
+                raise Error("No such instruction: |%s| (line: %s, line_no: %s, unit: %s)" % (
+                    instr, line, line_no, self.name))
             if instr == "RTN":
                 has_rtn = True
             expect_line = False
@@ -106,7 +109,7 @@ class CompilationUnit(object):
     def generate_code(self, code_ref, dep_refs):
         code = "\n".join(self.lines)
         for lab, ref in self.labels.iteritems():
-            code = code.replace("$" + lab, str(code_ref + ref))
+            code = re.sub(r"\$" + lab + r"\b", str(code_ref + ref), code)
         for dep in self.dep_funcs:
             code = re.sub(r"@" + dep + r"\b", str(dep_refs[dep]), code)
         return code

@@ -26,12 +26,12 @@ $far:
     LDF @abs_sub
     AP 2
     CGT
-    SEL $2close $2far
+    SEL $close2 $far2
     JOIN
-$2close:
+$close2:
     LDC 1
     JOIN
-$2far:
+$far2:
     LDC 0;
     JOIN
 
