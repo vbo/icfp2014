@@ -42,10 +42,16 @@ def replace_common(lines, line_no):
 
 
 class CompilationUnit(object):
-    def __init__(self, name):
+    def __init__(self, name, lines=None):
         self.name = name
         self.lines = []
-        self.instructions_count = 0
+        if lines:
+            for line in lines.split("\n"):
+                line = line.strip()
+                if not line:
+                    continue
+                self.lines.append(line)
+        self.instructions_count = len(self.lines)
 
     def load_source(self, prefix):
         for line in file(prefix + '/' + self.name + '.gcc'):
@@ -60,20 +66,46 @@ class CompilationUnit(object):
 
 
 class Function(CompilationUnit):
-    def __init__(self, name):
-        super(Function, self).__init__(name)
-        self.load_source("functions")
+    def __init__(self, name, lines=None):
+        super(Function, self).__init__(name, lines)
+        if not lines:
+            self.load_source("functions")
 
 
 class Program(CompilationUnit):
-    def __init__(self, name):
-        super(Program, self).__init__(name)
-        self.load_source("programs")
+    def __init__(self, name, lines=None):
+        super(Program, self).__init__(name, lines)
+        if not lines:
+            self.load_source("programs")
 
 
 #compilation_units = [Program('test'), Function('LOAD_DATA1')]
-compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
-                    Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ')]
+#compilation_units = [Program('main'), Function('STEP'), Function('MAP_AT'), Function('LIST_VAL_AT'),
+                    #Function('GET_NEXT_DIRECTION'), Function('POINTS_EQ')]
+
+compilation_units = [
+        Program(
+            'test',
+            """
+                LDF TEST_LOAD_GHOSTS
+                AP 0
+                BRK
+                LDF TEST_FOREACH_GHOST_FUN
+                LDF FOREACH
+                AP 2
+                STOP
+            """
+        ),
+        Function(
+            'TEST_LOAD_GHOSTS'
+        ),
+        Function(
+            'FOREACH'
+        ),
+        Function(
+            'TEST_FOREACH_GHOST_FUN'
+        ),
+]
 
 if __name__ == '__main__':
     instruction_no = 0

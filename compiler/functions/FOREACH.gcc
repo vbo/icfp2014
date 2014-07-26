@@ -3,10 +3,13 @@ ATOM
 TSEL $RET $NEXT
     LD 0 0 ; $NEXT
     CAR
+    LD 0 1
+    AP 1
     LD 0 0
     CDR
+    LD 0 1
     LDF FOREACH
-    TAP 1
+    TAP 2
 
     RTN ; $RET
 
