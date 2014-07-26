@@ -1,6 +1,6 @@
-LDC 0
-LDC 1
-CONS
+LDC -1
+LDC -1
+CONS ; initial AI state: some point where player can not be on start
 LDF STEP
 CONS
 RTN

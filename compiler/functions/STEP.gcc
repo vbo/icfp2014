@@ -1,35 +1,58 @@
 LD 0 1 ; world
-LDC 1 ; player
-LDC 1 ; coords
+LDC 1
+LDC 1
 CONS
-LDF MAP_AT
+LDF MAP_AT ; get cur player coords to use as AI state
 AP 2
 
-LD 0 1 ; world
-LDC 2 ; player
-LDC 1 ; direction
+LD 0 1
+LDC 1
+LDC 1
 CONS
-LDF MAP_AT
-AP 2
-
-LD 0 1 ; world
-LDC 1 ; player
-LDC 1 ; coords
-CONS
-LDF MAP_AT
+LDF MAP_AT ; player cur coords to test for same point
 AP 2
 
 LD 0 0 ; get last point
-
-LDF POINTS_EQ
+LDF POINTS_EQ ; test player on the same point as before
 AP 2
 
 TSEL $CHANGE_DIRECTION $GO_ON
 
-    LDF GET_NEXT_DIRECTION ; $CHANGE_DIRECTION
-    AP 1
+    LD 0 1 ; $CHANGE_DIRECTION
+    LDC 2
+    LDC 1
     CONS
+    LDF MAP_AT ; get player direction to be used in GET_NEXT_DIRECTION
+    AP 2
+    LDF GET_NEXT_DIRECTION
+    AP 1
+    CONS ; pair of current player coords and new direction
     RTN
 
-    CONS ; $GO_ON
+    LD 0 1 ; $GO_ON
+    LDC 1
+    LDC 1
+    CONS
+    LDF MAP_AT ; get cur player coords (to call dir_from_to)
+    AP 2
+
+    LD 0 1
+    LDC 0
+    LDF LIST_VAL_AT ; get map from world
+    AT 2
+
+    LD 0 1
+    LDC 1
+    LDC 1
+    CONS
+    LDF MAP_AT ; get player coords (to call valuable neighbor)
+    AP 2
+
+    LDF GET_VALUABLE_NEIGHBOR
+    AP 2
+
+    LDF DIR_FROM_TO
+    AP 2
+
+    CONS ; pair of current player coords and new direction
     RTN
