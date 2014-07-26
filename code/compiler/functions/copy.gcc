@@ -1,0 +1,5 @@
+; args: value
+; return: 2 values in stack
+LD 0 0
+LD 0 0
+RTN
