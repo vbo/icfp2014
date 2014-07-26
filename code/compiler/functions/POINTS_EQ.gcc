@@ -6,16 +6,17 @@ CAR
 LD 0 1
 CAR
 CEQ
-TSEL $CMRY $RTN0
-    LD 0 0 ; $CMRY
+TSEL $cmry $rtn0
+$cmry:
+    LD 0 0
     CDR
     LD 0 1
     CDR
     CEQ
-    TSEL $RTN1 $RTN0
-
-        LDC 1 ; $RTN1
+    TSEL $RTN1 $rtn0
+$rtn1:
+        LDC 1
         RTN
-
-    LDC 0 ; $RTN0
+$rtn0:
+    LDC 0
     RTN

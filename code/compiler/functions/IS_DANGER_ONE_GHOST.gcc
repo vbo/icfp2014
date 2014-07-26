@@ -7,7 +7,7 @@ LD 0 0
 CDR
 CAR
 LD 1 1 ; point
-LDF IS_CLOSE
+LDF @is_close
 AP 2
 LD 0 1 ; accumulator
 ADD

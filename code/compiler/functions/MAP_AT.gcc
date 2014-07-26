@@ -4,12 +4,12 @@
 LD 0 0 ; map
 LD 0 1 ; pos
 CDR    ; pos.y
-LDF LIST_VAL_AT
+LDF @list_val_at
 AP 2
 
 LD 0 1 ; pos
 CAR    ; pos.x
-LDF LIST_VAL_AT ; with pos.x, row
+LDF @list_val_at ; with pos.x, row
 AP 2
 
 RTN

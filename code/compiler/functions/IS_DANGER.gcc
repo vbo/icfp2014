@@ -3,8 +3,8 @@
 ; return: int (0 - no danger)
 
 LD 0 0
-LDF IS_DANGER_ONE_GHOST
+LDF @is_danger_one_ghost
 LDC 0
-LDF REDUCE
+LDF @reduce
 AP 3
 RTN

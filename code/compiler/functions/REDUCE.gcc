@@ -1,7 +1,8 @@
 LD 0 0
 ATOM
-TSEL $RET $NEXT
-    LD 0 0 ; $NEXT
+TSEL $ret $next
+$next:
+    LD 0 0
     CAR ; ghost
     LD 0 2 ; accumulator
     LD 0 1 ; function
@@ -11,10 +12,10 @@ TSEL $RET $NEXT
     CDR
     LD 0 1
     LD 0 2
-    LDF REDUCE
+    LDF @reduce
     BRK
     TAP 3
-
-    LD 0 2 ; $RET
+$ret:
+    LD 0 2
     RTN
 

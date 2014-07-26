@@ -3,16 +3,15 @@
 ; return: list[index]
 
 LD 0 1 ; index
-
-TSEL $NEXT $RTN ; index != 0
-    LD 0 0 ; $NEXT
+TSEL $next $rtn ; index != 0
+$next:
+    LD 0 0 ;
     CDR
     LD 0 1
-    LDC 1
-    SUB
+    #dec
     LDF LIST_VAL_AT
     TAP 2
-
-    LD 0 0 ; $RTN
+$rtn:
+    LD 0 0
     CAR
     RTN

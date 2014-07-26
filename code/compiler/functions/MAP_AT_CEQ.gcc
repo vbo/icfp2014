@@ -3,7 +3,7 @@
 
 LD 0 0 ; map
 LD 0 1 ; coords
-LDF MAP_AT
+LDF @map_at
 AP 2
 
 LD 0 2

@@ -5,58 +5,58 @@ LD 0 1 ; world
 LDC 1
 LDC 1
 CONS
-LDF MAP_AT ; get cur player coords to use as AI state
+LDF @map_at ; get cur player coords to use as AI state
 AP 2
 
 LD 0 1
 LDC 1
 LDC 1
 CONS
-LDF MAP_AT ; player cur coords to test for same point
+LDF @map_at ; player cur coords to test for same point
 AP 2
 
 LD 0 0 ; get last point
-LDF POINTS_EQ ; test player on the same point as before
+LDF @points_eq ; test player on the same point as before
 AP 2
 
-TSEL $CHANGE_DIRECTION $GO_ON
-
-    LD 0 1 ; $CHANGE_DIRECTION
+TSEL $change_direction $go_on
+$change_direction:
+    LD 0 1
     LDC 2
     LDC 1
     CONS
-    LDF MAP_AT ; get player direction to be used in GET_NEXT_DIRECTION
+    LDF @map_at ; get player direction to be used in GET_NEXT_DIRECTION
     AP 2
-    LDF GET_NEXT_DIRECTION
+    LDF @get_next_direction
     AP 1
     CONS ; pair of current player coords and new direction
     RTN
-
-    LD 0 1 ; $GO_ON
+$go_on:
+    LD 0 1
     LDC 1
     LDC 1
     CONS
-    LDF MAP_AT ; get cur player coords (to call dir_from_to)
+    LDF @map_at ; get cur player coords (to call dir_from_to)
     AP 2
 
     LD 0 1
     LDC 0
-    LDF LIST_VAL_AT ; get map from world
+    LDF @list_val_at ; get map from world
     AP 2
 
     LD 0 1
     LDC 1
     LDC 1
     CONS
-    LDF MAP_AT ; get player coords (to call valuable neighbor)
+    LDF @map_at ; get player coords (to call valuable neighbor)
     AP 2
 
-    LDF GET_VALUABLE_NEIGHBOR
+    LDF @get_valuable_neighbor
     AP 2
 
     LD 0 1
 
-    LDF DIR_TO_VALUABLE_NEIGHBOR
+    LDF @dir_to_valuable_neighbor
     AP 2
 
     CONS ; pair of current player coords and new direction
