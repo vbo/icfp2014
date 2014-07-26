@@ -1,8 +1,9 @@
 ; tuple might not have zero as the last value, structure with last 0 is list
-; args: tuple, index
+; args: tuple, index, size
 ; return: tuple[index]
 
-LD 0 1 ; index
+LD 0 1 ; will be used later
+LD 0 1
 
 TSEL $NEXT $RTN ; index != 0
     LD 0 0 ; $NEXT
@@ -10,15 +11,17 @@ TSEL $NEXT $RTN ; index != 0
     LD 0 1
     LDC 1
     SUB
-    LDF TUPLE_AT
+    LDF LIST_VAL_AT
     TAP 2
 
-    LD 0 0 ; $RTN
-    ATOM
-    TSEL $RTN $CAR_AND_RTN
-        LD 0 0 ; $RTN
+    LD 0 2 ; $RTN
+    CEQ
+    TSEL $CDR_RET $CAR_RET
+        LD 0 0 ; $CDR_RET
+        CDR
         RTN
 
-        LD  0 0 ; $CAR_AND_RTN
+        LD 0 0 ; $CAR_RET
+        CAR
         CAR
         RTN

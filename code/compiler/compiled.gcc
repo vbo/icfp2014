@@ -1,0 +1,56 @@
+LDF 7
+AP 0
+LDC 3 ; index
+LDC 4 ; size
+LDF 17
+AP 3
+RTN
+; loads some dummy tuple    ; def TEST_LOAD_TUPLE
+; no args, returns dummy_tuple, size = 4
+LDC 0
+LDC 11
+LDC 8
+CONS
+LDC 2
+CONS
+CONS ; (0, ((11, 8), 2))
+RTN
+; tuple might not have zero as the last value, structure with last 0 is list    ; def TUPLE_AT
+; args: tuple, index, size
+; return: tuple[index]
+LD 0 1 ; will be used later
+LD 0 1
+TSEL 23 30 ; index != 0
+LD 0 0 ; $NEXT
+CDR
+LD 0 1
+LDC 1
+SUB
+LDF 40
+TAP 2
+LD 0 2 ; $RTN
+CEQ
+TSEL 33 36
+LD 0 0 ; $CDR_RET
+CDR
+RTN
+LD 0 0 ; $CAR_RET
+CAR
+CAR
+RTN
+; list always has 0 as the last value, structure without last 0 is tuple    ; def LIST_VAL_AT
+; args: list, index
+; return: list[index]
+LD 0 1 ; index
+TSEL 45 52 ; index != 0
+LD 0 0 ; $NEXT
+CDR
+LD 0 1
+LDC 1
+SUB
+LDF 40
+TAP 2
+LD 0 0 ; $RTN
+CAR
+RTN
+ 
