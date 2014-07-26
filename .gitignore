@@ -1,3 +1,5 @@
 .idea
 *.iml
 code/functions/compiled.gcc
+compiled.gcc
+*.pyc
