@@ -1,3 +1,6 @@
+; used to load test ghost data in the data_stack
+; return: world.ghost
+
 LDC 0
 LDC 11
 LDC 8

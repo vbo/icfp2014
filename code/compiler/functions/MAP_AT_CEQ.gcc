@@ -1,3 +1,6 @@
+; args: 2d_array, point, check_value
+; return: 2d_array[point.y][point.x] == check_value
+
 LD 0 0 ; map
 LD 0 1 ; coords
 LDF MAP_AT

@@ -1,3 +1,6 @@
+; args: 2d_array, point
+; return: 2d_array[point.y][point.x]
+
 LD 0 0 ; map
 LD 0 1 ; pos
 CDR    ; pos.y

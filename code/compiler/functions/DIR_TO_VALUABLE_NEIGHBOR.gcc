@@ -1,4 +1,7 @@
-LD 0 0 ; args: neighbour, world
+; uses world.player.location as from
+; args: neighbour, world
+; return: direction (0,1,2,3)
+LD 0 0
 ATOM
 TSEL $RTN_ORIG $RTN_DIR_TO
     LD 0 1 ; $RTN_ORIG

@@ -1,3 +1,6 @@
+; args: state, world
+; return: [new_state, direction]
+
 LD 0 1 ; world
 LDC 1
 LDC 1

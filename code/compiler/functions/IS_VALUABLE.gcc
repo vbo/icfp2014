@@ -1,3 +1,6 @@
+; args: value of map
+; return: value in ['pill', 'power_pill', 'fruit']
+
 LD 0 0
 LDC 2 ; check pill
 CEQ

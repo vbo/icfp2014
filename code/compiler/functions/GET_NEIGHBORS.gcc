@@ -1,33 +1,35 @@
-LD 0 0 ;(2, 2)
-CAR ;x
-LDC 1
-ADD
+; args: point
+; return: [right_point, down_point, left_point, up_point]
 LD 0 0
-CDR ;y
+CAR
+LDC 1
+ADD ; x+1
+LD 0 0
+CDR
 CONS
 
 LD 0 0
-CAR ;x
-LD 0 0 ; (2, 2)
-CDR ;y
-LDC 1
-ADD
-CONS
-
-LD 0 0 ;(2, 2)
-CAR ;x
-LDC 1
-SUB
+CAR
 LD 0 0
-CDR ;y
+CDR
+LDC 1
+ADD  ; y+1
 CONS
 
 LD 0 0
-CAR ;x
-LD 0 0 ;(2, 2)
-CDR ;y
+CAR
 LDC 1
-SUB
+SUB ; x-1
+LD 0 0
+CDR
+CONS
+
+LD 0 0
+CAR
+LD 0 0
+CDR
+LDC 1
+SUB ;y-1
 CONS
 
 CONS

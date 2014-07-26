@@ -1,3 +1,7 @@
+; used to check if get_valuable_neighbor works fine
+; args: state, world
+; return: NOTHING
+
 LD 0 1 ; world
 LDC 0
 LDF LIST_VAL_AT ; get map from world

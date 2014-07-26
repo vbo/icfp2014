@@ -1,3 +1,6 @@
+; args: point1, point2
+; return: point1 == point2
+
 LD 0 0
 CAR
 LD 0 1

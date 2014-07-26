@@ -1,3 +1,6 @@
+; args: array, index
+; return: array[index]
+
 LD 0 1 ; index
 
 TSEL $NEXT $RTN ; index != 0

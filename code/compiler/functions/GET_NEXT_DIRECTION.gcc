@@ -1,4 +1,6 @@
-LD 0 0 ; orig dir
+; args: current_direction
+; return: next_direction (based on strange rules)
+LD 0 0
 
 LDC 0
 CEQ

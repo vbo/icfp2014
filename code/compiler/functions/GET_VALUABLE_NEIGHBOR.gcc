@@ -1,3 +1,5 @@
+; args: map, point
+; return: point (neighbor which has pill, power_pill or fruit)
 LD 0 0 ; get map
 
 LD 0 1

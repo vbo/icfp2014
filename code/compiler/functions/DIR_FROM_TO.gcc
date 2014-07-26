@@ -1,3 +1,5 @@
+; args: from, to
+; return: direction (0,1,2,3)
 LD 0 0 ; from
 CAR ; x1
 LD 0 1 ; to
