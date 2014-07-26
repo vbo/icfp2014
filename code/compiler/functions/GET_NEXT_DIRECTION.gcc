@@ -1,26 +1,28 @@
 ; args: current_direction
 ; return: next_direction (based on strange rules)
 LD 0 0
-
 LDC 0
 CEQ
-TSEL $RTN_RIGHT $NOT_UP
-    LDC 1 ; $RTN_RIGHT
+TSEL $rtn_right $not_up
+$rtn_right:
+    LDC #right
     RTN
-
-    LD 0 0 ; $NOT_UP
-    LDC 2
+$not_up:
+    LD 0 0
+    LDC #down
     CEQ
     TSEL $RTN_LEFT $NOT_DOWN
-        LDC 3 ; $RTN_LEFT
-        RTN
-
-        LD 0 0 ; $NOT_DOWN
-        LDC 1
-        CEQ
-        TSEL $RTN_UP $RTN_DOWN
-            LDC 0 ; $RTN_UP
-            RTN
-
-            LDC 2 ; $RTN_DOWN
-            RTN
+$rtn_left:
+    LDC #left
+    RTN
+$not_down:
+    LD 0 0
+    LDC #right
+    CEQ
+    TSEL $rtn_up $rtn_down
+$rtn_up
+    LDC #up
+    RTN
+$rtn_down
+    LDC #down
+    RTN

@@ -10,92 +10,86 @@ LD 0 1
 CDR
 CONS ; getting point on the right
 
-LDF MAP_AT ; getting value of the point right of interesting
+LDF @map_at ; getting value of the point right of interesting
 AP 2
 
-LDF IS_VALUABLE ; check value
+LDF @is_valuable ; check value
 AP 1
-TSEL $RTN_RIGHT $NOT_RIGHT
-
-    LD 0 1 ; $RTN_RIGHT
+TSEL $rtn_right $not_right
+$rtn_right:
+    LD 0 1
     CAR
-    LDC 1
-    ADD
+    #inc
     LD 0 1
     CDR
     CONS ; getting point on the right of interesting
     RTN
-
-    LD 0 0 ; $NOT_RIGHT
+$not_right:
+    LD 0 0
     LD 0 1
     CAR
     LD 0 1
     CDR
-    LDC 1
-    ADD
+    #inc
     CONS ; point on down
 
-    LDF MAP_AT ; value
+    LDF @map_at ; value
     AP 2
     LDF IS_VALUABLE
     AP 1
-    TSEL $RTN_DOWN $NOT_DOWN
-        LD 0 1 ; $RTN_DOWN
-        CAR
-        LD 0 1
-        CDR
-        LDC 1
-        ADD
-        CONS
-        RTN
+    TSEL $rtn_down $not_down
+$rtn_down:
+    LD 0 1
+    CAR
+    LD 0 1
+    CDR
+    #inc
+    CONS
+    RTN
+$not_down:
+    LD 0 0
+    LD 0 1
+    CAR
+    #dec
+    LD 0 1
+    CDR
+    CONS ; point on the left
 
-        LD 0 0 ; $NOT_DOWN
-        LD 0 1
-        CAR
-        LDC 1
-        SUB
-        LD 0 1
-        CDR
-        CONS ; point on the left
+    LDF @map_at
+    AP 2
+    LDF @is_valuable
+    AP 1
+    TSEL $rtn_left $not_left
+$rtn_left:
+    LD 0 1
+    CAR
+    #dec
+    LD 0 1
+    CDR
+    CONS ; point on the left
+    RTN
+$not_left:
+    LD 0 0
+    LD 0 1
+    CAR
+    LD 0 1
+    CDR
+    #inc
+    CONS ; point on up
 
-        LDF MAP_AT
-        AP 2
-        LDF IS_VALUABLE
-        AP 1
-        TSEL $RTN_LEFT $NOT_LEFT
-
-            LD 0 1 ; $RTN_LEFT
-            CAR
-            LDC 1
-            SUB
-            LD 0 1
-            CDR
-            CONS ; point on the left
-            RTN
-
-            LD 0 0 ; $NOT_LEFT
-            LD 0 1
-            CAR
-            LD 0 1
-            CDR
-            LDC 1
-            SUB
-            CONS ; point on up
-
-            LDF MAP_AT
-            AP 2
-            LDF IS_VALUABLE
-            AP 1
-            TSEL $RTN_UP $RTN_NUL
-
-                LD 0 1 ; $RTN_UP
-                CAR
-                LD 0 1
-                CDR
-                LDC 1
-                SUB
-                CONS ; point on up
-                RTN
-
-                LDC 0 ; $RTN_NUL
-                RTN
+    LDF @map_at
+    AP 2
+    LDF @is_valuable
+    AP 1
+    TSEL $rtn_up $rtn_null
+$rtn_up:
+    LD 0 1
+    CAR
+    LD 0 1
+    CDR
+    #dec
+    CONS ; point on up
+    RTN
+$rtn_null:
+    LDC 0
+    RTN
