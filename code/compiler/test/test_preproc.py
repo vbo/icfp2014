@@ -29,6 +29,14 @@ class PreprocTestCase(unittest.TestCase):
         self.assertEqual(u.instructions_count, 1)
         self.assertEqual(u.lines, ["LD 0 0"])
 
+        u = CompilationUnit("macro_local", """
+            !def local_macro LD 0 2
+            #local_macro
+            ; or not?
+        """)
+        self.assertEqual(u.instructions_count, 1)
+        self.assertEqual(u.lines, ["LD 0 2"])
+
     def test_labels(self):
         u = CompilationUnit("macro", """
             $lab1:

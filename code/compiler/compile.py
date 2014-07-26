@@ -5,11 +5,12 @@ import re
 import gcc
 
 # #something macro
+# !def macro something - define local macro
 # $something: define label, $something - use label
 # @something call external func
 
 
-macros = {
+GLOBAL_MACRO = {
     # some may be used in test, don't remove
     "MACROS_WORK?": """
         ; do something
@@ -50,16 +51,27 @@ class CompilationUnit(object):
         # pre-cleanup, macro-replace, local jumps
         self.name = name
         self.labels = {}
+        self.lines = []
         self.dep_funcs = set()
         self.instructions_count = 0
-        for k, v in macros.iteritems():
+        for k, v in GLOBAL_MACRO.iteritems():
             source = source.replace("#" + k, v)
-        self.lines = []
+        lines = source.split("\n")
+        local_macro = {}
+        for line in lines:
+            line = line.strip()
+            if not line.startswith('!'):
+                continue
+            def_match = re.match(r'^!def\s+(\w+)(.*)$', line)
+            if def_match:
+                k = def_match.groups()[0]
+                v = def_match.groups()[1]
+                source = source.replace("#" + k, v)
         expect_line = False
         has_rtn = False
         for line in source.split("\n"):
             line = line.strip()
-            if not line or line.startswith(';'):
+            if not line or line.startswith(';') or line.startswith('!'):
                 continue
             label_match = re.match(r'\$(\w+):' + self.EOI_RE, line)
             if label_match:
