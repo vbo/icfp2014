@@ -4,6 +4,7 @@ CAR
 LD 1 1 ; point
 LDF IS_CLOSE
 AP 2
+LD 0 1 ; accumulator
 ADD
 RTN
 

@@ -1,0 +1,20 @@
+LD 0 0
+ATOM
+TSEL $RET $NEXT
+    LD 0 0 ; $NEXT
+    CAR ; ghost
+    LD 0 2 ; accumulator
+    LD 0 1 ; function
+    AP 2
+    ST 0 2 ; accumulate
+    LD 0 0
+    CDR
+    LD 0 1
+    LD 0 2
+    LDF REDUCE
+    BRK
+    TAP 3
+
+    LD 0 2 ; $RET
+    RTN
+
