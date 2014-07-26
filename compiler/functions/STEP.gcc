@@ -39,7 +39,7 @@ TSEL $CHANGE_DIRECTION $GO_ON
     LD 0 1
     LDC 0
     LDF LIST_VAL_AT ; get map from world
-    AT 2
+    AP 2
 
     LD 0 1
     LDC 1
