@@ -1,0 +1,8 @@
+LD 0 0 ; map
+LD 0 1 ; coords
+LDF MAP_AT
+AP 2
+
+LD 0 2
+CEQ
+RTN

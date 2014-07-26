@@ -42,7 +42,32 @@ World state (
         )
      ),
      (
-        0, //empty array of ghosts
+        (   // array of ghosts
+            (
+                0,
+                ((11, 8), 2)
+            ),
+            (
+                (
+                    0,
+                    ((10, 10), 2)
+                ),
+                (
+                    (
+                        0,
+                        ((11, 10), 2)
+                    ),
+                    (
+                        (
+                            0,
+                            ((12, 10), 2)
+                        ),
+                        0
+                    )
+                )
+            )
+        ),
         0 //empty array of fruits
      )
 )
+
