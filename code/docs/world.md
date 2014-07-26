@@ -44,8 +44,8 @@ World state (
      (
         (   // array of ghosts
             (
-                0,
-                ((11, 8), 2)
+                0, // vitality
+                ((11, 8), 2) // coord and direction
             ),
             (
                 (

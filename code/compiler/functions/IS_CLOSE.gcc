@@ -1,3 +1,9 @@
+; check if the point is in "distance" of 2 from the another point
+; TODO: distance is MIN (|x1 - x2|, |y1 - y2|), very strange
+; TODO: pass the value of close distance (it's 2 here)
+; args: first point, second point
+; return 0 or 1
+
 LDC 2
 LD 0 0 ; first point
 CAR ; first x

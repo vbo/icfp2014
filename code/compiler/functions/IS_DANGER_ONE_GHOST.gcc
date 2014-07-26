@@ -1,3 +1,8 @@
+; return dangerousness of the point affected by definite ghost
+; args: ghost, accumulator of dangerousness
+; IMPORTANT: LD 1 1 should return point for check (TODO: use current frame)
+; return: new value of dangerousness
+
 LD 0 0
 CDR
 CAR

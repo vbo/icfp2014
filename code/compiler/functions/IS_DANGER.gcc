@@ -1,3 +1,7 @@
+; return dangerousness of the point affected by all ghosts
+; args: ghosts, point
+; return: int (0 - no danger)
+
 LD 0 0
 LDF IS_DANGER_ONE_GHOST
 LDC 0

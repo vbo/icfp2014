@@ -1,5 +1,6 @@
 ; args: num1, num2
 ; returns |num2 - num1|
+
 LDC 0
 LD 0 0 ; first
 LD 0 1 ; second
