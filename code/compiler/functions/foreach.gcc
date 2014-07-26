@@ -1,3 +1,7 @@
+; do foreach element in the list and call function
+; args: list, function
+; return: what function would return
+
 LD 0 0
 ATOM
 TSEL $ret $next

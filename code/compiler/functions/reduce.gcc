@@ -1,3 +1,7 @@
+; get list, go through, call function for every element and keep some accumulator
+; args: list, function, initial value of accumulator
+; return: final value of accumulator
+
 LD 0 0
 ATOM
 TSEL $ret $next
