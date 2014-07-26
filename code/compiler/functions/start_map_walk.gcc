@@ -1,0 +1,19 @@
+; args: 2d_array (map), point
+; return: dir
+
+!def ld_map        LD 0 0
+!def ld_point      LD 0 1
+
+#ld_map ; map for map_walk
+
+#ld_map
+#ld_point
+LDF @get_neighbors
+AP 2 ; neighs for map_walk
+
+LDC 0
+
+LDF @map_walk
+AP 3
+
+RTN

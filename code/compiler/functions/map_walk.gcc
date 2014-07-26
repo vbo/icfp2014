@@ -1,21 +1,12 @@
-; args: 2d_array (map), point, 2 local vars
+; args: 2d_array (map), neighbors, 1 local var
 ; return: dir
 
 !def ld_map        LD 0 0
-!def ld_point      LD 0 1
-!def ld_loc_all    LD 0 2
-!def st_loc_all    ST 0 2
-!def ld_loc_tasty  LD 0 3
-!def st_loc_tasty  ST 0 3
+!def ld_neighbors  LD 0 1
+!def ld_loc_tasty  LD 0 2
+!def st_loc_tasty  ST 0 2
 
-#ld_map
-#ld_point
-LDF @get_neighbors
-AP 2
-
-#st_loc_all
-#ld_loc_all
-
+#ld_neighbors
 LDF @neighbor_accum_valuable
 LDC 0
 

@@ -16,11 +16,8 @@ CONS
 LDF @map_at ; get cur player coords to use as AI state
 AP 2
 
-LDC 0 ; local val
-LDC 0 ; local val2
-
-LDF @map_walk
-AP 4
+LDF @start_map_walk
+AP 2
 
 CONS
 

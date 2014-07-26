@@ -8,11 +8,8 @@ LDC 4
 LDC 1
 CONS
 
-LDC 0 ; local val
-LDC 0 ; local val2
-
 BRK
-LDF @map_walk
-AP 4
+LDF @start_map_walk
+AP 2
 RTN
 
