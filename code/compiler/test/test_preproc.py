@@ -1,7 +1,7 @@
 import unittest
 
-from .. runner import CompilationUnit
-from .. runner import Error
+from .. compile import CompilationUnit
+from .. compile import Error
 
 
 class PreprocTestCase(unittest.TestCase):

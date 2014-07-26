@@ -1,7 +1,7 @@
 import unittest
 
-from .. runner import CompilationUnit
-from .. runner import Linker
+from .. compile import CompilationUnit
+from .. compile import Linker
 
 
 class SourceLoader(object):
