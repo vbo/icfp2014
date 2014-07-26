@@ -1,0 +1,28 @@
+LDC 2
+LD 0 0 ; first point
+CAR ; first x
+LD 0 1 ; second point
+CAR ; second x
+LDF ABS_SUB
+AP 2
+CGT
+SEL $CLOSE $FAR
+RTN
+LDC 1; $CLOSE
+JOIN
+
+LDC 2 ; $FAR
+LD 0 0 ; first point
+CDR ; first y
+LD 0 1 ; second point
+CDR ; second y
+LDF ABS_SUB
+AP 2
+CGT
+SEL $2CLOSE $2FAR
+JOIN
+LDC 1; $2CLOSE
+JOIN
+LDC 0; $2FAR
+JOIN
+
