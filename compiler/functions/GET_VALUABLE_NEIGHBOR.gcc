@@ -84,7 +84,7 @@ TSEL $RTN_RIGHT $NOT_RIGHT
             AP 2
             LDF IS_VALUABLE
             AP 1
-            TSEL $RTN_UP $RTN_SELF
+            TSEL $RTN_UP $RTN_NUL
 
                 LD 0 1 ; $RTN_UP
                 CAR
@@ -95,5 +95,5 @@ TSEL $RTN_RIGHT $NOT_RIGHT
                 CONS ; point on up
                 RTN
 
-                LD 0 1 ; $RTN_SELF
+                LDC 0 ; $RTN_NUL
                 RTN

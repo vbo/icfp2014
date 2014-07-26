@@ -1,0 +1,23 @@
+LD 0 0 ; args: neighbour, world
+ATOM
+TSEL $RTN_ORIG $RTN_DIR_TO
+    LD 0 1 ; $RTN_ORIG
+    LDC 2
+    LDC 1
+    CONS
+    LDF MAP_AT
+    AP 2
+    RTN
+
+    LD 0 1 ; $RTN_DIR_TO
+    LDC 1
+    LDC 1
+    CONS
+    LDF MAP_AT
+    AP 2
+
+    LD 0 0
+
+    LDF DIR_FROM_TO
+    AP 2
+    RTN

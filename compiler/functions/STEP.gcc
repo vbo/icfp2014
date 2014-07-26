@@ -51,7 +51,9 @@ TSEL $CHANGE_DIRECTION $GO_ON
     LDF GET_VALUABLE_NEIGHBOR
     AP 2
 
-    LDF DIR_FROM_TO
+    LD 0 1
+
+    LDF DIR_TO_VALUABLE_NEIGHBOR
     AP 2
 
     CONS ; pair of current player coords and new direction
