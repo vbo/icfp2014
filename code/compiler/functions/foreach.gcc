@@ -1,5 +1,5 @@
 ; do foreach element in the list and call function
-; args: list, function
+; args: list, function, self
 ; return: what function would return
 
 LD 0 0
@@ -13,8 +13,9 @@ $next:
     LD 0 0
     CDR
     LD 0 1
-    LDF @foreach
-    TAP 2
+    LD 0 2
+    LD 0 2
+    TAP 3
 $ret:
     RTN
 

@@ -97,6 +97,13 @@ $empty:
     LDC 0
     LDF @reduce
     AP 3
+    ; filtered + map
+
+    #call_copy
+    LDF @neighbor_accum_add_profit
+    LDF @foreach
+    LDF @foreach
+    AP 3
 
     #ld_cross_visited
     #ld_loc_new_last_visited

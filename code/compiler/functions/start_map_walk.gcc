@@ -53,5 +53,13 @@ $need_new_solution:
     LDC #right ; random direction
     ADD
 $ok:
+    #ld_dir_up
+    DBUG
+    #ld_dir_right
+    DBUG
+    #ld_dir_down
+    DBUG
+    #ld_dir_left
+    DBUG
 
 RTN
