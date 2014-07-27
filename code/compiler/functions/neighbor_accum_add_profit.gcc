@@ -1,16 +1,19 @@
 ; args: cur_neighbor
 ; reduce should be started with empty rh cons-list
 
-!def ld_dir_up     LD 2 3
-!def st_dir_up     ST 2 3
-!def ld_dir_right  LD 2 4
-!def st_dir_right  ST 2 4
-!def ld_dir_down   LD 2 5
-!def st_dir_down   ST 2 5
-!def ld_dir_left   LD 2 6
-!def st_dir_left   ST 2 6
-!def ld_neigh_val  LD 0 0, CDR, CAR
-!def ld_neigh_dir  LD 0 0, CDR, CDR
+; def ld_wave_num_p1     LD 1 4, LDC 1, ADD
+!def ld_dir_up          LD 2 3
+!def st_dir_up          ST 2 3
+!def ld_dir_right       LD 2 4
+!def st_dir_right       ST 2 4
+!def ld_dir_down        LD 2 5
+!def st_dir_down        ST 2 5
+!def ld_dir_left        LD 2 6
+!def st_dir_left        ST 2 6
+!def ld_neigh_dir       LD 0 0, CDR, CDR
+    ;def _add_profit        LD 0 0, CDR, CAR, LDF @get_value_profit, AP 1
+    ;def add_profit         #_add_profit, LDC 1000, #ld_wave_num_p1, DIV, MUL, ADD
+!def add_profit         LD 0 0, CDR, CAR, LDF @get_value_profit, AP 1, LDC 1000, LD 1 4, LDC 1, ADD, DIV, MUL, ADD
 
 #ld_neigh_dir
 LDC #down
@@ -18,8 +21,7 @@ CEQ
 TSEL $add_down $not_down
 $add_down:
     #ld_dir_down
-    #ld_neigh_val
-    ADD
+    #add_profit
     #st_dir_down
     RTN
 $not_down:
@@ -29,8 +31,7 @@ $not_down:
     TSEL $add_up $not_up
         $add_up:
             #ld_dir_up
-            #ld_neigh_val
-            ADD
+            #add_profit
             #st_dir_up
             RTN
         $not_up:
@@ -40,14 +41,12 @@ $not_down:
             TSEL $add_right $not_right
             $add_right:
                 #ld_dir_right
-                #ld_neigh_val
-                ADD
+                #add_profit
                 #st_dir_right
                 RTN
             $not_right:
                 #ld_dir_left
-                #ld_neigh_val
-                ADD
+                #add_profit
                 #st_dir_left
                 RTN
 

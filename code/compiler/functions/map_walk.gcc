@@ -57,74 +57,55 @@ LDC #maximum_number_of_total_visited
 CGT
 TSEL $cnt $rtn
 $rtn:
-    LDC -1
     RTN
 $cnt:
 
+#ld_map ; used for the recursive call of map_walk
+
 #ld_neighbors
-LDF @neighbor_accum_valuable
+
+LDF @neighbor_accum_neighbors ; load new neighbors&crossings
+LDC 0
+LDC 0
+CONS
+LDF @reduce
+AP 3
+
+#call_copy
+CAR
+LDF @neighbor_accum_not_visited ; remove last visited wave
 LDC 0
 LDF @reduce
 AP 3
 
-#st_loc_tasty
-#ld_loc_tasty
+#call_flip
+; neighb&cr + filtered + map
+CDR
 
-ATOM ; test for empty valuable neighs
-TSEL $empty $some
-$empty:
-    #ld_map ; used for the recursive call of map_walk
+; cr + filtered  + map
+LDF @concat_accum
+#ld_cross_visited
+LDF @reduce ; new, func, old
+AP 3
+; new_cross + filtered  + map
+#st_cross_visited
+; filtered + map
 
-    #ld_neighbors
+LDF @neighbor_accum_not_crossings ; remove visited crossings
+LDC 0
+LDF @reduce
+AP 3
+; filtered + map
 
-    LDF @neighbor_accum_neighbors ; load new neighbors&crossings
-    LDC 0
-    LDC 0
-    CONS
-    LDF @reduce
-    AP 3
+#ld_cross_visited
+#ld_loc_new_last_visited
+#ld_wave_num
+#inc
+#ld_total_visited
+LDC 0 ; just for local var
+LDC 0 ; just for local var
 
-    #call_copy
-    CAR
-    LDF @neighbor_accum_not_visited ; remove last visited wave
-    LDC 0
-    LDF @reduce
-    AP 3
+#ld_self
+AP 8
 
-    #call_flip
-    ; neighb&cr + filtered + map
-    CDR
-
-    ; cr + filtered  + map
-    LDF @concat_accum
-    #ld_cross_visited
-    LDF @reduce ; new, func, old
-    AP 3
-    ; new_cross + filtered  + map
-    #st_cross_visited
-    ; filtered + map
-
-    LDF @neighbor_accum_not_crossings ; remove visited crossings
-    LDC 0
-    LDF @reduce
-    AP 3
-    ; filtered + map
-
-    #ld_cross_visited
-    #ld_loc_new_last_visited
-    #ld_wave_num
-    #inc
-    #ld_total_visited
-    LDC 0 ; just for local var
-    LDC 0 ; just for local var
-
-    #ld_self
-    AP 8
-
-    RTN
-$some:
-    #ld_loc_tasty
-    CAR
-    CDR
-    CDR
-    RTN
+RTN

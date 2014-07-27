@@ -66,8 +66,9 @@ function start_map_walk(pos) {
         }
     }
 
-    map_walk(neighs, 0);
+    map_walk(neighs, 0); // DONE
     return get_max_profit_dir();
+    //TODO: equal profits
 }
 
 function filter_walkable(neighs) {

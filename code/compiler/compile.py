@@ -29,7 +29,7 @@ GLOBAL_MACRO = {
     "fruit": "4",
     "lambda_start": "5",
     "ghost_start": "6",
-    "maximum_number_of_total_visited": "100",
+    "maximum_number_of_total_visited": "128",
     "inc": """
         LDC 1
         ADD

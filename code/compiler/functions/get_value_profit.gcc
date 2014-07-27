@@ -5,14 +5,14 @@ LD 0 0
 LDC #pill
 CEQ
 TSEL $rtn_true $not_pill
+$rtn_true:
+    LDC 1
+    RTN
 $not_pill:
     LD 0 0
     LDC #power_pill
     CEQ
     TSEL $rtn_true $rtn_false
-$rtn_true:
-    LDC 1
-    RTN
 $rtn_false:
     LDC 0
     RTN

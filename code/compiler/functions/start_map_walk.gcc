@@ -43,25 +43,20 @@ LDC 0 ; for local variable
 #ld_map_walk
 AP 8
 
-#call_copy
-LDC -1
-CEQ
-TSEL $need_new_solution $ok
-$need_new_solution:
-                                    ; TODO: do something fast here
-    #inc ; now we have 0 on stack
-    LDC #right ; random direction
-    ADD
-$ok:
-    LDC -56
-    DBUG
-    #ld_dir_up
-    DBUG
-    #ld_dir_right
-    DBUG
-    #ld_dir_down
-    DBUG
-    #ld_dir_left
-    DBUG
-
+LDC -56
+DBUG
+#ld_dir_up
+DBUG
+#ld_dir_right
+DBUG
+#ld_dir_down
+DBUG
+#ld_dir_left
+DBUG
+#ld_dir_up
+#ld_dir_right
+#ld_dir_down
+#ld_dir_left
+LDF @get_max_profit_dir
+AP 4
 RTN
