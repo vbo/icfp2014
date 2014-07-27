@@ -1,87 +1,9 @@
 ; args: cur_neighbor, neighbors_list
-; return: rh cons-list of neighbor[s] where neighbor is ((x=0, y=1), (val=3, dir=orig_neighbor.dir))
+; return: rh cons-list of neighbor[s]
+;   where neighbor is (((x=0, y=1), (val=3, dir=orig_neighbor.dir)), (list of crossing points)
 
-!def ld_el  LD 0 0
-!def ld_ac  LD 0 1
-!def st_ac  ST 0 1
-!def ld_map LD 1 0
-!def get_point LD 0 0, CAR
-!def get_dir   LD 0 0, CDR, CDR
-
-#get_point
-CAR
-#inc ;x+1
-#get_point
-CDR
-CONS
-#ld_map
-LDF @copy1back
+LDC 0
+LDC 0
+LDF @_neighbor_accum_neighbors
 AP 2
-LDF @map_at
-AP 2
-#get_dir
-CONS
-CONS
-
-#ld_ac
-CONS
-#st_ac
-
-#get_point
-CAR
-#get_point
-CDR
-#inc ; y+1
-CONS
-#ld_map
-LDF @copy1back
-AP 2
-LDF @map_at
-AP 2
-#get_dir
-CONS
-CONS
-
-#ld_ac
-CONS
-#st_ac
-
-#get_point
-CAR
-#dec ; x-1
-#get_point
-CDR
-CONS
-#ld_map
-LDF @copy1back
-AP 2
-LDF @map_at
-AP 2
-#get_dir
-CONS
-CONS
-
-#ld_ac
-CONS
-#st_ac
-
-#get_point
-CAR
-#get_point
-CDR
-#dec ;y-1
-CONS
-#ld_map
-LDF @copy1back
-AP 2
-LDF @map_at
-AP 2
-#get_dir
-CONS
-CONS
-
-#ld_ac
-CONS
-
 RTN
-

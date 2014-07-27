@@ -8,10 +8,13 @@
 
 #ld_map
 #ld_point
+LDC 0 ; local variable
 LDF @get_neighbors
-AP 2 ; neighs for map_walk
+AP 3 ; neighs for map_walk
 
-; making neighbors list
+#cons_unpack
+
+; making last wave list
 #ld_point
 LDC -1 ;making fake value, direction
 LDC -1
@@ -21,8 +24,7 @@ LDC 0
 CONS
 
 LDC 0 ; for local variable
-
 LDF @map_walk
-AP 4
+AP 5
 
 RTN

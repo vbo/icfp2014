@@ -1,0 +1,7 @@
+; args: CONS value
+; return: 1 values in stack
+LD 0 0
+CAR
+LD 0 0
+CDR
+RTN

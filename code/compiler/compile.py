@@ -38,7 +38,8 @@ GLOBAL_MACRO = {
         SUB
     """,
     "not": "LDC 0, CEQ",
-    "call_copy": "LDF @copy, AP 1"
+    "call_copy": "LDF @copy, AP 1",
+    "cons_unpack": "LDF @cons_unpack, AP 1"
 }
 
 

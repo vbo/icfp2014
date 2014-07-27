@@ -8,9 +8,10 @@ LDC 1
 LDC 1
 CONS
 
+LDC 0
 BRK
 LDF @get_neighbors
-AP 2
+AP 3
 DBUG
 RTN
 

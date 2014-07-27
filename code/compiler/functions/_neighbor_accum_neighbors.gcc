@@ -1,18 +1,26 @@
-; args: map, point, loc_var
-; return: list of neighbors and crossings (in points format): (((x=0, y=1), (val=3, dir=1)), ((x=0, y=1))
+; args: 2 local_vars
+; return: rh cons-list of neighbor[s]
+;   where neighbor is (((x=0, y=1), (val=3, dir=orig_neighbor.dir)), (list of crossing points))
 
-!def ld_map   LD 0 0
-!def ld_point LD 0 1
-!def ld_loc_cross LD 0 2
-!def st_loc_cross ST 0 2
+!def ld_loc_cross  LD 0 0
+!def st_loc_cross  ST 0 0
+!def ld_loc_neighs_ac  LD 0 1
+!def st_loc_neighs_ac  ST 0 1
+!def ld_el  LD 1 0
+!def ld_ac  LD 1 1
+!def st_ac  ST 1 1
+!def ld_map LD 2 0
+!def get_point LD 1 0, CAR
+!def get_dir   LD 1 0, CDR, CDR
 
-LDC 0
-#st_loc_cross
+#ld_ac
+CAR
+#st_loc_neighs_ac
 
-#ld_point
+#get_point
 CAR
 #inc ;x+1
-#ld_point
+#get_point
 CDR
 CONS
 #ld_map
@@ -26,13 +34,17 @@ AP 2
     #ld_loc_cross
     ADD
     #st_loc_cross
-LDC #right
+#get_dir
 CONS
 CONS
 
-#ld_point
+#ld_loc_neighs_ac
+CONS
+#st_loc_neighs_ac
+
+#get_point
 CAR
-#ld_point
+#get_point
 CDR
 #inc ; y+1
 CONS
@@ -47,14 +59,18 @@ AP 2
     #ld_loc_cross
     ADD
     #st_loc_cross
-LDC #down
+#get_dir
 CONS
 CONS
 
-#ld_point
+#ld_loc_neighs_ac
+CONS
+#st_loc_neighs_ac
+
+#get_point
 CAR
 #dec ; x-1
-#ld_point
+#get_point
 CDR
 CONS
 #ld_map
@@ -68,13 +84,17 @@ AP 2
     #ld_loc_cross
     ADD
     #st_loc_cross
-LDC #left
+#get_dir
 CONS
 CONS
 
-#ld_point
+#ld_loc_neighs_ac
+CONS
+#st_loc_neighs_ac
+
+#get_point
 CAR
-#ld_point
+#get_point
 CDR
 #dec ;y-1
 CONS
@@ -89,15 +109,11 @@ AP 2
     #ld_loc_cross
     ADD
     #st_loc_cross
-LDC #up
+#get_dir
 CONS
 CONS
 
-LDC 0
-
-CONS
-CONS
-CONS
+#ld_loc_neighs_ac
 CONS
 
 #ld_loc_cross
@@ -105,12 +121,14 @@ LDC 2
 CGT
 TSEL $cross $no_cross
 $cross:
-    #ld_point
-    LDC 0
+    #get_point
+    #ld_ac
+    CDR
     CONS
     CONS
     RTN
 $no_cross:
-    LDC 0
+    #ld_ac
+    CDR
     CONS
     RTN

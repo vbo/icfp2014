@@ -6,7 +6,6 @@ LDC 4
 LDC 1
 CONS
 
-BRK
 LDF @start_map_walk
 AP 2
 RTN
