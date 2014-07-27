@@ -8,10 +8,8 @@
 ;DBUG
 
 
-#ld_state
 
 #ld_world
-CAR ; load map
 
 #ld_world
 LDC 1
@@ -25,8 +23,12 @@ LDC 0
 LDC 0
 LDC 0
 LDC 0
+LDC 0
 LDF @start_map_walk
-AP 7
+AP 8
+
+#ld_state
+#call_flip
 
 CONS
 

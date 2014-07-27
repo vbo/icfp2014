@@ -1,6 +1,8 @@
+LDC -1
+LDF 3
+AP 1
 LDF @load_data_bigger
 AP 0
-CAR
 
 LDC 4
 LDC 1
@@ -11,8 +13,9 @@ LDC 0
 LDC 0
 LDC 0
 LDC 0
+LDC 0
 
 LDF @start_map_walk
-AP 7
+AP 8
 RTN
 

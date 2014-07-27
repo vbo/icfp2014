@@ -1,7 +1,8 @@
 ; args: 2d_array (map), point, 2 x local var
 ; return: dir
 
-!def ld_map        LD 0 0
+!def ld_map        LD 0 0, CAR
+!def ld_player     LD 0 0, CDR, CAR
 !def ld_point      LD 0 1
 !def ld_map_walk   LD 0 2
 !def st_map_walk   ST 0 2
@@ -13,6 +14,33 @@
 !def st_dir_down   ST 0 5
 !def ld_dir_left   LD 0 6
 !def st_dir_left   ST 0 6
+!def ld_dir        LD 0 7
+!def st_dir        ST 0 7
+!def dec_profit    LDC -1000, ADD
+!def ld_ai_state   LD 1 0
+!def st_ai_state   ST 1 0
+
+#ld_player
+CDR
+CDR
+CAR
+#st_dir
+
+#ld_ai_state
+BRK
+LDC -1
+CEQ
+SEL $start $not_start
+#ld_ai_state
+DBUG
+#ld_dir_up
+DBUG
+#ld_dir_right
+DBUG
+#ld_dir_down
+DBUG
+#ld_dir_left
+DBUG
 
 LDF @map_walk
 #st_map_walk
@@ -60,3 +88,48 @@ DBUG
 LDF @get_max_profit_dir
 AP 4
 RTN
+
+$not_start:
+    LDC -11111
+    DBUG
+    #ld_dir
+    LDC #down
+    CEQ
+    TSEL $add_down $not_down
+    $add_down:
+        #ld_dir_up
+        #dec_profit
+        #st_dir_up
+        JOIN
+    $not_down:
+        #ld_dir
+        LDC #up
+        CEQ
+        TSEL $add_up $not_up
+            $add_up:
+                #ld_dir_down
+                #dec_profit
+                #st_dir_down
+                JOIN
+            $not_up:
+                #ld_dir
+                LDC #right
+                CEQ
+                TSEL $add_right $not_right
+                $add_right:
+                    #ld_dir_left
+                    #dec_profit
+                    #st_dir_left
+                    JOIN
+                $not_right:
+                    #ld_dir_right
+                    #dec_profit
+                    #st_dir_right
+                    JOIN
+    JOIN
+$start:
+    LDC -22222
+    DBUG
+    LDC 0
+    #st_ai_state
+    JOIN
