@@ -50,6 +50,7 @@ class CompilationUnit(object):
 
     ALLOW_NO_RTN = False
     PRINT_UNIT_NAME = True
+    PRINT_INSTR_CNT_DBUG = False
     EOI_RE = r"(?:$|;.*)"
 
     def __init__(self, name, source):
@@ -88,6 +89,10 @@ class CompilationUnit(object):
                 self.labels[label_name] = self.instructions_count
                 expect_line = True
                 continue
+            if self.PRINT_INSTR_CNT_DBUG:
+                self.lines.append("LDC -42")
+                self.lines.append("DBUG")
+                self.instructions_count += 2
             dep_call_match = re.search(r'@(\w+)', line)
             if dep_call_match:
                 dep_name = dep_call_match.groups()[0]

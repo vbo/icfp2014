@@ -5,6 +5,7 @@ from .. compile import Error
 
 CompilationUnit.ALLOW_NO_RTN = True
 CompilationUnit.PRINT_UNIT_NAME = False
+CompilationUnit.PRINT_INSTR_CNT_DBUG = False
 
 
 class PreprocTestCase(unittest.TestCase):
