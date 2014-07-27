@@ -17,57 +17,57 @@ function start_map_walk(pos) {
         if (dir == 2) dir2 += profit;
         if (dir == 3) dir3 += profit;
     }
-    function get_dir_with_max_profit() {
-        if (dir0 > dir1) {
-            if (dir0 > dir2) {
-                if (dir0 > dir3) {
-                    return 0;
-                } else {
-                    return 3;
-                }
-            } else {
-                if (dir2 > dir3) {
-                    return 2;
-                } else {
-                    return 3;
-                }
-            }
-        } else {
-            if (dir1 > dir2) {
-                if (dir1 > dir3) {
-                    return 1;
-                } else {
-                    return 3;
-                }
-            } else {
-                if (dir2 > dir3) {
-                    return 2;
-                } else {
-                    return 3;
-                }
-            }
-        }
-    }
+    function get_max_profit_dir() {
+        if (dir0 > dir1) {          //DONE
+            if (dir0 > dir2) {          //DONE
+                if (dir0 > dir3) {          //DONE
+                    return 0;          //DONE
+                } else {          //DONE
+                    return 3;          //DONE
+                }          //DONE
+            } else {          //DONE
+                if (dir2 > dir3) {          //DONE
+                    return 2;          //DONE
+                } else {          //DONE
+                    return 3;          //DONE
+                }          //DONE
+            }          //DONE
+        } else {          //DONE
+            if (dir1 > dir2) {          //DONE
+                if (dir1 > dir3) {          //DONE
+                    return 1;          //DONE
+                } else {          //DONE
+                    return 3;          //DONE
+                }          //DONE
+            } else {          //DONE
+                if (dir2 > dir3) {          //DONE
+                    return 2;          //DONE
+                } else {          //DONE
+                    return 3;          //DONE
+                }          //DONE
+            }          //DONE
+        }          //DONE
+    }          //DONE
     function determine_neighs_profit(neigh) {
         var profit = get_profit(neigh);
         store_dir_profit(neigh['dir'], profit);
     }
 
     function map_walk(neighs, wave_num, total_visited) {
-        neighs = filter_walkable(neighs);
-        foreach(neighs, determine_neighs_profit);
-        if (total_visited > MAX_NUM) {
-            return;
+        neighs = filter_walkable(neighs); //DONE
+        foreach(neighs, determine_neighs_profit); //DONE
+        if (total_visited > MAX_NUM) { //DONE
+            return; //DONE
         } else { // DONE
-            var new_neighs, counter = get_neighbors_of_neighbors(neighs);
+            var new_neighs, counter = get_neighbors_of_neighbors(neighs); //DONE
             if (counter > 0) {
-                map_walk(new_neighs, wave_num + 1, counter + total_visited);
+                map_walk(new_neighs, wave_num + 1, counter + total_visited); //DONE
             }
         }
     }
 
     map_walk(neighs, 0);
-    return get_dir_with_max_profit();
+    return get_max_profit_dir();
 }
 
 function filter_walkable(neighs) {

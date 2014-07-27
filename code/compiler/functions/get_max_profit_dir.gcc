@@ -1,0 +1,74 @@
+; gets 4 dirs, selects the max one
+; args: up_profit, right_profit, down_profit, left_profit
+; returns direction (0..3)
+
+!def ld_up LD 0 0
+!def ld_right LD 0 1
+!def ld_down LD 0 2
+!def ld_left LD 0 3
+
+#ld_up
+#ld_right
+CGT
+TSEL $up_gt_right $right_gt_up
+$up_gt_right:
+    #ld_up
+    #ld_down
+    CGT
+    TSEL $up_gt_right_gt_down $down_gt_up_gt_right
+    $up_gt_right_gt_down:
+        #ld_up
+        #ld_left
+        CGT
+        TSEL $rt_up $rt_left
+    $down_gt_up_gt_right:
+        #ld_down
+        #ld_left
+        CGT
+        TSEL $rt_down $rt_left
+$right_gt_up:
+    #ld_right
+    #ld_down
+    CGT
+    TSEL $right_gt_up_gt_down $down_gt_right_gt_up
+    $right_gt_up_gt_down:
+        #ld_right
+        #ld_left
+        CGT
+        TSEL $rt_right $rt_left
+    $down_gt_right_gt_up:
+        #ld_down
+        #ld_left
+        CGT
+        TSEL $rt_down $rt_left
+
+$rt_up:
+    LDC #up
+    RTN
+
+$rt_right:
+    LDC #right
+    RTN
+
+$rt_down:
+    LDC #down
+    RTN
+
+$rt_left:
+    LDC #left
+    RTN
+
+;if (dir0 > dir1) {
+;        if (dir0 > dir2) {
+;            if (dir0 > dir3) {
+;                return 0;
+;            } else {
+;                return 3;
+;            }
+;        } else {
+;            if (dir2 > dir3) {
+;                return 2;
+;            } else {
+;                return 3;
+;            }
+;        }

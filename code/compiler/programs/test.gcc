@@ -1,0 +1,3 @@
+!def smth LDC 1, LDC 0, CONS
+#smth
+RTN

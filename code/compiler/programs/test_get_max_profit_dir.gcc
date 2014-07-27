@@ -1,0 +1,8 @@
+LDC 1 ; up 0
+LDC 2 ; right 1
+LDC 30 ; down 2
+LDC 1 ; left 3
+LDF @get_max_profit_dir
+AP 4
+DBUG
+RTN
