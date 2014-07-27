@@ -6,7 +6,13 @@ LDC 4
 LDC 1
 CONS
 
+LDC 0
+LDC 0
+LDC 0
+LDC 0
+LDC 0
+
 LDF @start_map_walk
-AP 2
+AP 7
 RTN
 

@@ -52,9 +52,10 @@ function start_map_walk(pos) {
         var profit = get_profit(neigh);
         store_dir_profit(neigh['dir'], profit);
     }
-    function map_walk(neighs, wave_num) {
-        if (wave_num < MAX_NUM) {
-            map_walk(get_neighbors_of_neighbors(neighs), wave_num + 1);
+    function map_walk(neighs, wave_num, total_visited) {
+        if (total_visited < MAX_NUM) {
+            var new_neighs, counter = get_neighbors_of_neighbors(neighs);
+            map_walk(new_neighs, wave_num + 1, counter + total_visited);
         }
         foreach(neighs, determine_neighs_profit);
     }

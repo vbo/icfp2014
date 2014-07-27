@@ -7,10 +7,21 @@
 !def st_cross_visited               ST 0 2
 !def ld_last_visited                LD 0 3
 !def st_last_visited                ST 0 3
-!def ld_loc_tasty                   LD 0 4
-!def st_loc_tasty                   ST 0 4
-!def ld_loc_new_last_visited        LD 0 5
-!def st_loc_new_last_visited        ST 0 5
+!def ld_wave_num                    LD 0 4
+!def ld_total_visited               LD 0 5
+!def ld_loc_tasty                   LD 0 6
+!def st_loc_tasty                   ST 0 6
+!def ld_loc_new_last_visited        LD 0 7
+!def st_loc_new_last_visited        ST 0 7
+!def ld_self                        LD 1 2
+!def ld_dir_up                      LD 1 3
+!def st_dir_up                      ST 1 3
+!def ld_dir_right                   LD 1 4
+!def st_dir_right                   ST 1 4
+!def ld_dir_down                    LD 1 5
+!def st_dir_down                    ST 1 5
+!def ld_dir_left                    LD 1 6
+!def st_dir_left                    ST 1 6
 
 #ld_neighbors
 LDF @neighbor_accum_valuable
@@ -69,11 +80,15 @@ $empty:
 
     #ld_cross_visited
     #ld_loc_new_last_visited
+    #ld_wave_num
+    #inc
+    #ld_total_visited
+    #inc ; TODO: make it works
     LDC 0 ; just for local var
     LDC 0 ; just for local var
 
-    LDF @map_walk
-    AP 6
+    #ld_self
+    AP 8
 
     RTN
 $some:

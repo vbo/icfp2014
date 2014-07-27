@@ -1,8 +1,21 @@
-; args: 2d_array (map), point
+; args: 2d_array (map), point, 2 x local var
 ; return: dir
 
 !def ld_map        LD 0 0
 !def ld_point      LD 0 1
+!def ld_map_walk   LD 0 2
+!def st_map_walk   ST 0 2
+!def ld_dir_up     LD 0 3
+!def st_dir_up     ST 0 3
+!def ld_dir_right  LD 0 4
+!def st_dir_right  ST 0 4
+!def ld_dir_down   LD 0 5
+!def st_dir_down   ST 0 5
+!def ld_dir_left   LD 0 6
+!def st_dir_left   ST 0 6
+
+LDF @map_walk
+#st_map_walk
 
 #ld_map ; map for map_walk
 
@@ -23,9 +36,11 @@ CONS
 LDC 0
 CONS
 
+LDC 0 ; wave_num
+LDC 0 ; total_visited
 LDC 0 ; for local variable
 LDC 0 ; for local variable
-LDF @map_walk
-AP 6
+#ld_map_walk
+AP 8
 
 RTN
