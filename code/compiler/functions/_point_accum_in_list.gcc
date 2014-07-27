@@ -1,27 +1,21 @@
-; args: point, is_unique
-; return: is_unique
+; args: point, ac
+; return: ac
 ; the point which is checked should be in "LD 1 0"
 
-!def ld_is_unique LD 0 1
-!def st_is_unique  ST 0 1
+!def ld_ac LD 0 1
 !def ld_cur_point LD 0 0
 !def ld_last_point  LD 1 0
-!def st_last_point  ST 1 0
-BRK
-#ld_is_unique ; used further to be returned
+
+#ld_ac ; used further to be returned
+
 TSEL $check $rtn
-$rtn:
-    #ld_is_unique
-    RTN
 $check:
     #ld_cur_point
     #ld_last_point
     LDF @points_eq
     AP 2
     #not
-    #st_is_unique
-    #ld_is_unique
-
-    #ld_last_point ; saving current point to check it next
-    #st_last_point
+    RTN
+$rtn:
+    #ld_ac
     RTN

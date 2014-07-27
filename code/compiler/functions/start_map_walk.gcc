@@ -24,7 +24,8 @@ LDC 0
 CONS
 
 LDC 0 ; for local variable
+LDC 0 ; for local variable
 LDF @map_walk
-AP 5
+AP 6
 
 RTN

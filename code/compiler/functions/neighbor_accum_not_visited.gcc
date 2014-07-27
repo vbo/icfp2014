@@ -1,4 +1,4 @@
-; closure visited LD 1 2
+; closure visited LD 1 3
 ; args: current, accum_list
 ; returns: accum_list
 
