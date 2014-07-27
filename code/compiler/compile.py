@@ -12,7 +12,7 @@ import gcc
 
 GLOBAL_MACRO = {
     # some may be used in test, don't remove
-    "MACROS_WORK?": """
+    "MACROS_WORK": """
         ; do something
         ADD, SUB
         LD 0 0
@@ -49,6 +49,7 @@ class Error(Exception):
 class CompilationUnit(object):
 
     ALLOW_NO_RTN = False
+    PRINT_UNIT_NAME = True
     EOI_RE = r"(?:$|;.*)"
 
     def __init__(self, name, source):
@@ -108,7 +109,8 @@ class CompilationUnit(object):
             raise Error("Expected line after '%s'" % (self.lines[-1]))
         if not self.ALLOW_NO_RTN and not has_rtn:
             raise Error("RTN required at unit: %s" % (self.name,))
-        self.lines[0] += '; unit ' + self.name
+        if self.PRINT_UNIT_NAME:
+            self.lines[0] += '; unit ' + self.name
 
     def generate_code(self, code_ref, dep_refs):
         code = "\n".join(self.lines)

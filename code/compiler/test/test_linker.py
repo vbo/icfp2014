@@ -2,6 +2,7 @@ import unittest
 
 from .. compile import CompilationUnit
 from .. compile import Linker
+CompilationUnit.PRINT_UNIT_NAME = False
 
 
 class SourceLoader(object):

@@ -4,6 +4,7 @@ from .. compile import CompilationUnit
 from .. compile import Error
 
 CompilationUnit.ALLOW_NO_RTN = True
+CompilationUnit.PRINT_UNIT_NAME = False
 
 
 class PreprocTestCase(unittest.TestCase):
@@ -24,7 +25,7 @@ class PreprocTestCase(unittest.TestCase):
 
     def test_macro(self):
         u = CompilationUnit("macro", """
-            #MACROS_WORK?
+            #MACROS_WORK
             ; or not?
         """)
         self.assertEqual(u.instructions_count, 3)
