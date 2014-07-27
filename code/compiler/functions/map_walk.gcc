@@ -24,6 +24,15 @@
 !def ld_dir_left                    LD 1 6
 !def st_dir_left                    ST 1 6
 
+LDC #maximum_number_of_total_visited
+#ld_total_visited
+CGT
+TSEL $cnt $rtn
+$rtn:
+    LDC -1
+    RTN
+$cnt:
+
 #ld_neighbors
 LDF @neighbor_accum_valuable
 LDC 0
