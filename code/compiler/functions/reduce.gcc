@@ -2,23 +2,28 @@
 ; args: list, accumulating function ( cur_el, cur_accum_val -> new_accum_val ), initial value of accumulator
 ; return: final value of accumulator
 
-LD 0 0
+!def ld_list  LD 0 0
+!def ld_accum_func  LD 0 1
+!def ld_current_accum  LD 0 2
+!def st_current_accum  ST 0 2
+
+#ld_list
 ATOM
 TSEL $ret $next
 $next:
-    LD 0 0
-    CAR ; ghost
-    LD 0 2 ; accumulator
-    LD 0 1 ; function
+    #ld_list
+    CAR
+    #ld_current_accum
+    #ld_accum_func
     AP 2
-    ST 0 2 ; accumulate
-    LD 0 0
+    #st_current_accum
+    #ld_list
     CDR
-    LD 0 1
-    LD 0 2
+    #ld_accum_func
+    #ld_current_accum
     LDF @reduce
     TAP 3
 $ret:
-    LD 0 2
+    #ld_current_accum
     RTN
 

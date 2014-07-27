@@ -6,6 +6,5 @@
 #ld_value
 LDC #wall
 CEQ
-LDC 0
-CEQ
+#not
 RTN

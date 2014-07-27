@@ -36,7 +36,8 @@ GLOBAL_MACRO = {
     "dec": """
         LDC 1
         SUB
-    """
+    """,
+    "not": "LDC 0, CEQ"
 }
 
 
