@@ -120,14 +120,6 @@ class CompilationUnit(object):
             code = re.sub(r"@" + dep + r"\b", str(dep_refs[dep]), code)
         return code
 
-    def load_source(self, prefix):
-        for line in file(prefix + '/' + self.name + '.gcc'):
-            line = line.strip()
-            if not line:
-                continue
-            self.instructions_count += 1
-            self.lines.append(line)
-
 
 class Linker(object):
 
