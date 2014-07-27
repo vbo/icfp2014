@@ -9,6 +9,7 @@
 !def st_last_visited                ST 0 3
 !def ld_wave_num                    LD 0 4
 !def ld_total_visited               LD 0 5
+!def st_total_visited               ST 0 5
 !def ld_loc_tasty                   LD 0 6
 !def st_loc_tasty                   ST 0 6
 !def ld_loc_new_last_visited        LD 0 7
@@ -41,8 +42,18 @@ $empty:
     #ld_neighbors
     LDF @neighbor_accum_walkable
     LDC 0
+    LDC 0
+    CONS
     LDF @reduce
     AP 3     ; get neighbors of walkable neighbors
+
+    #call_copy          ; get and add new visited
+    CDR
+    #ld_total_visited
+    ADD
+    #st_total_visited
+
+    CAR             ; get walkable from cons
     #call_copy
     #st_loc_new_last_visited
 
@@ -83,7 +94,6 @@ $empty:
     #ld_wave_num
     #inc
     #ld_total_visited
-    #inc ; TODO: make it works
     LDC 0 ; just for local var
     LDC 0 ; just for local var
 
