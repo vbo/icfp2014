@@ -12,7 +12,7 @@ import gcc
 
 GLOBAL_MACRO = {
     # some may be used in test, don't remove
-    "MACROS_WORK?": """
+    "MACROS_WORK": """
         ; do something
         ADD, SUB
         LD 0 0
@@ -50,6 +50,8 @@ class Error(Exception):
 class CompilationUnit(object):
 
     ALLOW_NO_RTN = False
+    PRINT_UNIT_NAME = True
+    PRINT_INSTR_CNT_DBUG = False
     EOI_RE = r"(?:$|;.*)"
 
     def __init__(self, name, source):
@@ -88,6 +90,10 @@ class CompilationUnit(object):
                 self.labels[label_name] = self.instructions_count
                 expect_line = True
                 continue
+            if self.PRINT_INSTR_CNT_DBUG:
+                self.lines.append("LDC -42")
+                self.lines.append("DBUG")
+                self.instructions_count += 2
             dep_call_match = re.search(r'@(\w+)', line)
             if dep_call_match:
                 dep_name = dep_call_match.groups()[0]
@@ -109,7 +115,8 @@ class CompilationUnit(object):
             raise Error("Expected line after '%s'" % (self.lines[-1]))
         if not self.ALLOW_NO_RTN and not has_rtn:
             raise Error("RTN required at unit: %s" % (self.name,))
-        self.lines[0] += '; unit ' + self.name
+        if self.PRINT_UNIT_NAME:
+            self.lines[0] += '; unit ' + self.name
 
     def generate_code(self, code_ref, dep_refs):
         code = "\n".join(self.lines)
@@ -118,14 +125,6 @@ class CompilationUnit(object):
         for dep in self.dep_funcs:
             code = re.sub(r"@" + dep + r"\b", str(dep_refs[dep]), code)
         return code
-
-    def load_source(self, prefix):
-        for line in file(prefix + '/' + self.name + '.gcc'):
-            line = line.strip()
-            if not line:
-                continue
-            self.instructions_count += 1
-            self.lines.append(line)
 
 
 class Linker(object):
