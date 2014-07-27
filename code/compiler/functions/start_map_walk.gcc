@@ -11,9 +11,18 @@
 LDF @get_neighbors
 AP 2 ; neighs for map_walk
 
+; making neighbors list
+#ld_point
+LDC -1 ;making fake value, direction
+LDC -1
+CONS
+CONS
 LDC 0
+CONS
+
+LDC 0 ; for local variable
 
 LDF @map_walk
-AP 3
+AP 4
 
 RTN

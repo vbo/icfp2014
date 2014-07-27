@@ -37,7 +37,8 @@ GLOBAL_MACRO = {
         LDC 1
         SUB
     """,
-    "not": "LDC 0, CEQ"
+    "not": "LDC 0, CEQ",
+    "call_copy": "LDF @copy, AP 1"
 }
 
 
@@ -58,7 +59,7 @@ class CompilationUnit(object):
         self.dep_funcs = set()
         self.instructions_count = 0
         for k, v in GLOBAL_MACRO.iteritems():
-            source = source.replace("#" + k, "\n".join(v.split(',')))
+            source = re.sub("#" + k + r"\b", "\n".join(v.split(',')), source)
         lines = source.split("\n")
         for line in lines:
             line = line.strip()
@@ -68,7 +69,7 @@ class CompilationUnit(object):
             if def_match:
                 k = def_match.groups()[0]
                 v = def_match.groups()[1]
-                source = source.replace("#" + k, "\n".join(v.split(',')))
+                source = re.sub("#" + k + r"\b", "\n".join(v.split(',')), source)
         expect_line = False
         has_rtn = False
         line_no = 0
@@ -107,6 +108,7 @@ class CompilationUnit(object):
             raise Error("Expected line after '%s'" % (self.lines[-1]))
         if not self.ALLOW_NO_RTN and not has_rtn:
             raise Error("RTN required at unit: %s" % (self.name,))
+        self.lines[0] += '; unit ' + self.name
 
     def generate_code(self, code_ref, dep_refs):
         code = "\n".join(self.lines)

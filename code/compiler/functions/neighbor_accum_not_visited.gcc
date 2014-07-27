@@ -1,0 +1,21 @@
+; closure visited LD 1 2
+; args: current, accum_list
+; returns: accum_list
+
+!def ld_el  LD 0 0
+!def ld_ac  LD 0 1
+!def ld_visited LD 1 2
+
+#ld_el
+#ld_visited
+LDF @is_neighbor_in_list
+AP 2
+TSEL $skip $add
+$skip:
+    #ld_ac
+    RTN
+$add:
+    #ld_el
+    #ld_ac
+    CONS
+    RTN

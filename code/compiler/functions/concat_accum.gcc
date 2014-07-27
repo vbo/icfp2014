@@ -1,0 +1,10 @@
+; args: current, list,
+; return: concat(current, list)
+
+!def ld_el  LD 0 0
+!def ld_ac  LD 0 1
+
+#ld_el
+#ld_ac
+CONS
+RTN

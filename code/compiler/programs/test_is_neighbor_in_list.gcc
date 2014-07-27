@@ -40,7 +40,7 @@ CONS
 CONS
 CONS
 
-LDF @is_neighbor_unique
+LDF @is_neighbor_in_list
 AP 2
 DBUG
 RTN
