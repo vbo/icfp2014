@@ -13,7 +13,7 @@ $cmry:
     LD 0 1
     CDR
     CEQ
-    TSEL $RTN1 $rtn0
+    TSEL $rtn1 $rtn0
 $rtn1:
         LDC 1
         RTN

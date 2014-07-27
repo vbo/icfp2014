@@ -1,5 +1,7 @@
 .idea
 *.iml
 code/functions/compiled.gcc
+dumpLoader/file.in
+dumpLoader/file.out
 compiled.gcc
 *.pyc

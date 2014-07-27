@@ -1,0 +1,12 @@
+; args: neighbor, list
+; return: is_unique
+
+!def ld_neighbor LD 0 0
+!def ld_list LD 0 1
+
+#ld_list
+LDF @neighbor_accum_in_list
+LDC 1 ; unique by default
+LDF @reduce
+AP 3
+RTN

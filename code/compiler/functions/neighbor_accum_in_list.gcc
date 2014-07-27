@@ -1,0 +1,28 @@
+; args: neighbor, is_unique
+; return: is_unique
+; the point which is checked should be in "LD 1 0"
+
+!def ld_is_unique LD 0 1
+!def st_is_unique  ST 0 1
+!def ld_cur_point LD 0 0, CAR
+!def ld_last_point  LD 1 0, CAR
+!def ld_last_neighbor  LD 1 0
+!def st_last_neighbor  ST 1 0
+
+#ld_is_unique ; used further to be returned
+TSEL $check $rtn
+$rtn:
+    #ld_is_unique
+    RTN
+$check:
+    #ld_cur_point
+    #ld_last_point
+    LDF @points_eq
+    AP 2
+    #not
+    #st_is_unique
+    #ld_is_unique
+
+    #ld_last_neighbor ; saving current point to check it next
+    #st_last_neighbor
+    RTN

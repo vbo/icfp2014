@@ -1,9 +1,0 @@
-LDC 1
-LDC 5
-CONS
-LDC 2
-LDC 3
-CONS
-LDF @dir_from_to
-AP 2
-RTN
