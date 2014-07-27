@@ -10,6 +10,15 @@
 !def ld_loc_tasty           LD 0 4
 !def st_loc_tasty           ST 0 4
 
+LDC -42
+DBUG
+#ld_neighbors
+DBUG
+LDC -56
+DBUG
+#ld_cross_visited
+DBUG
+
 #ld_neighbors
 LDF @neighbor_accum_valuable
 LDC 0
@@ -29,14 +38,8 @@ $empty:
     LDF @neighbor_accum_walkable
     LDC 0
     LDF @reduce
-    AP 3
-    ; get neighbors of walkable neighbors
-
-    #call_copy ; add walkable neighbors to visited
-    LDF @concat_accum
-    #ld_last_visited
-    LDF @reduce
-    AP 3
+    AP 3     ; get neighbors of walkable neighbors
+    #call_copy
     #st_last_visited
 
     LDF @neighbor_accum_neighbors ; load new neighbors&crossings
@@ -45,16 +48,36 @@ $empty:
     CONS
     LDF @reduce
     AP 3
+
+    #call_copy
     CAR
-    LDF @neighbor_accum_not_visited ; remove visited ones
+    LDF @neighbor_accum_not_visited ; remove last visited wave
+    LDC 0
+    LDF @reduce
+    AP 3
+
+    #call_flip
+    ; neighb&cr + filtered + map
+    CDR
+
+    ; cr + filtered  + map
+    LDF @concat_accum
+    #ld_cross_visited
+    LDF @reduce ; new, func, old
+    AP 3
+    ; new_cross + filtered  + map
+    #st_cross_visited
+    ; filtered + map
+
+    LDF @neighbor_accum_not_crossings ; remove visited crossings
     LDC 0
     LDF @reduce
     AP 3
 
     #ld_cross_visited
     #ld_last_visited
-
     LDC 0 ; just for local var
+
     LDF @map_walk
     AP 5
 

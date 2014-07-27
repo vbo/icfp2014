@@ -1,0 +1,13 @@
+; args: point, list
+; return: is_in_list
+
+!def ld_point LD 0 0
+!def ld_list LD 0 1
+
+#ld_list
+LDF @_point_accum_in_list
+LDC 1 ; unique by default
+LDF @reduce
+AP 3
+#not
+RTN

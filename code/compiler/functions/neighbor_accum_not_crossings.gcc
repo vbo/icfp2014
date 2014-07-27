@@ -1,0 +1,22 @@
+; closure visited_crossings LD 1 2
+; args: current, accum_list
+; returns: accum_list
+
+!def ld_el  LD 0 0
+!def ld_ac  LD 0 1
+!def ld_crossings LD 1 2
+
+#ld_el
+CAR
+#ld_crossings
+LDF @is_point_in_list
+AP 2
+TSEL $skip $add
+$skip:
+    #ld_ac
+    RTN
+$add:
+    #ld_el
+    #ld_ac
+    CONS
+    RTN
