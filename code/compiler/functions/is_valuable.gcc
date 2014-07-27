@@ -9,11 +9,6 @@ $not_pill:
     LD 0 0
     LDC #power_pill
     CEQ
-    TSEL $rtn_true $not_power_pill
-$not_power_pill:
-    LD 0 0
-    LDC 4 ; check fruit
-    CEQ
     TSEL $rtn_true $rtn_false
 $rtn_true:
     LDC 1

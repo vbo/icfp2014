@@ -3,6 +3,7 @@
 
 !def ld_map                         LD 0 0
 !def ld_neighbors                   LD 0 1
+!def st_neighbors                   ST 0 1
 !def ld_cross_visited               LD 0 2
 !def st_cross_visited               ST 0 2
 !def ld_last_visited                LD 0 3
@@ -23,6 +24,33 @@
 !def st_dir_down                    ST 1 5
 !def ld_dir_left                    LD 1 6
 !def st_dir_left                    ST 1 6
+
+; filter walkable neighs
+#ld_neighbors
+LDF @neighbor_accum_walkable
+LDC 0
+LDC 0
+CONS
+LDF @reduce
+AP 3     ; get neighbors of walkable neighbors
+
+#call_copy          ; get and add new visited
+CDR
+#ld_total_visited
+ADD
+#st_total_visited
+
+CAR             ; get walkable from cons
+#call_copy
+#st_loc_new_last_visited
+
+#st_neighbors
+
+#ld_neighbors
+LDF @neighbor_accum_add_profit
+LDF @foreach
+#call_copy ; we need to make the exact copy of foreach
+AP 3
 
 LDC #maximum_number_of_total_visited
 #ld_total_visited
@@ -47,24 +75,7 @@ TSEL $empty $some
 $empty:
     #ld_map ; used for the recursive call of map_walk
 
-    ; filter walkable neighs
     #ld_neighbors
-    LDF @neighbor_accum_walkable
-    LDC 0
-    LDC 0
-    CONS
-    LDF @reduce
-    AP 3     ; get neighbors of walkable neighbors
-
-    #call_copy          ; get and add new visited
-    CDR
-    #ld_total_visited
-    ADD
-    #st_total_visited
-
-    CAR             ; get walkable from cons
-    #call_copy
-    #st_loc_new_last_visited
 
     LDF @neighbor_accum_neighbors ; load new neighbors&crossings
     LDC 0
@@ -98,12 +109,6 @@ $empty:
     LDF @reduce
     AP 3
     ; filtered + map
-
-    #call_copy
-    LDF @neighbor_accum_add_profit
-    LDF @foreach
-    LDF @foreach
-    AP 3
 
     #ld_cross_visited
     #ld_loc_new_last_visited

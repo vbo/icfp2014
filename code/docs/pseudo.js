@@ -11,7 +11,7 @@ function start_map_walk(pos) {
     var dir1 = 0;
     var dir2 = 0;
     var dir3 = 0;
-    function store_dir_profit(dir, profit) {
+    function store_dir_profit(dir, profit) { // DONE
         if (dir == 0) dir0 += profit;
         if (dir == 1) dir1 += profit;
         if (dir == 2) dir2 += profit;
@@ -52,17 +52,26 @@ function start_map_walk(pos) {
         var profit = get_profit(neigh);
         store_dir_profit(neigh['dir'], profit);
     }
+
     function map_walk(neighs, wave_num, total_visited) {
-        if (total_visited < MAX_NUM) {
+        neighs = filter_walkable(neighs);
+        foreach(neighs, determine_neighs_profit);
+        if (total_visited > MAX_NUM) {
+            return;
+        } else { // DONE
             var new_neighs, counter = get_neighbors_of_neighbors(neighs);
             if (counter > 0) {
                 map_walk(new_neighs, wave_num + 1, counter + total_visited);
             }
         }
-        foreach(neighs, determine_neighs_profit);
     }
+
     map_walk(neighs, 0);
     return get_dir_with_max_profit();
+}
+
+function filter_walkable(neighs) {
+
 }
 
 step(1, {});
