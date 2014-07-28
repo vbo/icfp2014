@@ -16,7 +16,7 @@
 !def st_dir_left   ST 0 6
 !def ld_dir        LD 0 7
 !def st_dir        ST 0 7
-!def dec_profit    LDC -1000, ADD
+!def dec_profit    LDC -100, ADD
 !def ld_ai_state   LD 1 0
 !def st_ai_state   ST 1 0
 
