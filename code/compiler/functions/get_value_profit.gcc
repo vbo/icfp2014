@@ -4,6 +4,7 @@
 !def ld_val             LD 0 0
 !def ld_world           LD 3 0
 !def ld_fruit_status    LD 3 0, CDR, CDR, CDR
+!def ld_fright_mode     LD 3 0, CDR, CAR, CAR
 
 #ld_val
 LDC #pill
@@ -13,17 +14,21 @@ $not_pill:
     #ld_val
     LDC #power_pill
     CEQ
-    TSEL $rtn_power_pill $not_power_pill
+    TSEL $power_pill $not_power_pill
 
-$not_power_pill:
-    #ld_val
-    LDC #fruit
-    CEQ
-    TSEL $fruit_loc $rtn_false
+    $power_pill:
+        #ld_fright_mode
+        TSEL $rtn_pill $rtn_power_pill
 
-$fruit_loc:
-    #ld_fruit_status
-    TSEL $rtn_fruit $rtn_false
+    $not_power_pill:
+        #ld_val
+        LDC #fruit
+        CEQ
+        TSEL $fruit_loc $rtn_false
+
+            $fruit_loc:
+                #ld_fruit_status
+                TSEL $rtn_fruit $rtn_false
 
 $rtn_fruit:
     LDC 50000

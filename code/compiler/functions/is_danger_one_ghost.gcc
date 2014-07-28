@@ -1,7 +1,7 @@
 ; return dangerousness of the point affected by definite ghost
 ; args: ghost, accumulator of dangerousness
 ; IMPORTANT: LD 1 1 should return point for check (TODO: use current frame)
-; return: 1 - danger, 0 - no_danger, -1 - profit
+; return: 1 - danger, 0 - no_danger, -2 - profit
 
 !def ld_ghost_point         LD 0 0, CDR, CAR
 !def ld_ghost_status        LD 0 0, CAR
@@ -30,6 +30,7 @@ $here:
         TSEL $safe $visible
         $visible:
             #ld_ac
+            #dec
             #dec
             RTN
 

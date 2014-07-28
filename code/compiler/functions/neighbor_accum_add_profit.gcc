@@ -2,7 +2,8 @@
 ; reduce should be started with empty rh cons-list
 ; returns NONE
 
-!def ghost_to_far_dist  3
+!def ghost_to_far_to_danger      3
+!def ghost_to_far_to_value       10
 !def danger_profit_koef -10000
 !def ld_wave_num        LD 1 4
 !def ld_world           LD 2 0
@@ -28,11 +29,11 @@ AP 1
 ; profit + dir
 
 #ld_wave_num
-LDC #ghost_to_far_dist
+LDC #ghost_to_far_to_value
 CGT
-TSEL $danger_too_far $check_danger
+TSEL $ghost_too_far $check_ghosts
 
-$check_danger:
+$check_ghosts:
     ; in stack should be profit
     #ld_ghosts
     #ld_neigh_point
@@ -40,9 +41,12 @@ $check_danger:
     AP 2
     LDC #danger_profit_koef
     MUL
-    ADD ; adding to profit
+    #call_copy
+    LDC 0
+    CGT
+    SEL $add_ghosts_value $check_danger
 
-$danger_too_far:
+$ghost_too_far:
 
 #ld_wave_num
 LDF @get_dist_koef
@@ -53,3 +57,16 @@ LDF @store_dir_profit
 AP 2
 
 RTN
+
+$check_danger:
+    #ld_wave_num
+    LDC #ghost_to_far_to_danger
+    CGT
+    #not
+    MUL
+    ADD ; adding to previous_profit
+    JOIN
+
+$add_ghosts_value:
+    ADD ; adding to previous_profit
+    JOIN
