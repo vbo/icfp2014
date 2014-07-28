@@ -25,6 +25,16 @@
 !def ld_dir_left                    LD 1 6
 !def st_dir_left                    ST 1 6
 
+
+#ld_neighbors
+ATOM
+TSEL $zero_neighbors $non_zero
+
+$zero_neighbors:
+    RTN
+
+$non_zero:
+
 ; filter walkable neighs
 #ld_neighbors
 LDF @neighbor_accum_walkable
