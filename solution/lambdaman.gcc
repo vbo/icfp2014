@@ -1,261 +1,892 @@
-LDC -1
-LDC -1
-CONS ; initial AI state: some point where player can not be on start
-LDF 6
+LDC -1; initial AI state: some point where player can not be on start; unit main
+LDF 4
 CONS
 RTN
-LD 0 1 ; world    ; def STEP
-LDC 1
-LDC 1
-CONS
-LDF 55
-AP 2
+LD 0 1; unit step
 LD 0 1
 LDC 1
 LDC 1
 CONS
-LDF 55
+LDF 242 ; get cur player coords to use as AI state
 AP 2
-LD 0 0 ; get last point
-LDF 97
+LDC 0
+LDC 0
+LDC 0
+LDC 0
+LDC 0
+LDC 0
+LDF 24
+AP 8
+LD 0 0
+LDF 854
 AP 2
-TSEL 22 32
-LD 0 1 ; $CHANGE_DIRECTION
-LDC 2
-LDC 1
 CONS
-LDF 55
-AP 2
-LDF 77
-AP 1
-CONS ; pair of current player coords and new direction
 RTN
-LD 0 1 ; $GO_ON
+LD 0 0; unit start_map_walk
+CDR
+CAR
+CDR
+CDR
+CAR
+ST 0 7
+LD 1 0
+BRK
+LDC -1
+CEQ
+SEL 130 95
+LD 1 0
+DBUG
+LD 0 3
+DBUG
+LD 0 4
+DBUG
+LD 0 5
+DBUG
+LD 0 6
+DBUG
+LDF 394
+ST 0 2
+LD 0 0
+CAR ; map for map_walk
+LD 0 0
+CAR
+LD 0 1
+LDC 0 ; local variable
+LDF 135
+AP 3 ; neighs for map_walk
+LDF 313
+AP 1
+LDF 267
+AP 2
+LDF 318
+LDF 380
+LDF 264
+AP 1 ; we need to make the exact copy of foreach
+AP 3
+LD 0 1
+LDC -1 ;making fake value, direction
+LDC -1
+CONS
+CONS
+LDC 0
+CONS
+LDC 0 ; wave_num
+LDC 0 ; total_visited
+LDC 0 ; for local variable
+LDC 0 ; for local variable
+LD 0 2
+AP 8
+LDC -56
+DBUG
+LD 0 3
+DBUG
+LD 0 4
+DBUG
+LD 0 5
+DBUG
+LD 0 6
+DBUG
+LD 0 3
+LD 0 4
+LD 0 5
+LD 0 6
+LDF 277
+AP 4
+RTN
+LDC -11111
+DBUG
+LD 0 7
+LDC 2
+CEQ
+TSEL 101 106
+LD 0 3
+LDC -10000
+ADD
+ST 0 3
+JOIN
+LD 0 7
+LDC 0
+CEQ
+TSEL 110 115
+LD 0 5
+LDC -10000
+ADD
+ST 0 5
+JOIN
+LD 0 7
 LDC 1
+CEQ
+TSEL 119 124
+LD 0 6
+LDC -10000
+ADD
+ST 0 6
+JOIN
+LD 0 4
+LDC -10000
+ADD
+ST 0 4
+JOIN
+JOIN
+LDC -22222
+DBUG
+LDC 0
+ST 1 0
+JOIN
+LDC 0; unit get_neighbors
+ST 0 2
+LD 0 1
+CAR
+LDC 1
+ADD
+LD 0 1
+CDR
+CONS
+LD 0 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 2
+ADD
+ST 0 2
 LDC 1
 CONS
-LDF 55
+CONS
+LD 0 1
+CAR
+LD 0 1
+CDR
+LDC 1
+ADD
+CONS
+LD 0 0
+LDF 267
 AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 2
+ADD
+ST 0 2
+LDC 2
+CONS
+CONS
+LD 0 1
+CAR
+LDC 1
+SUB
+LD 0 1
+CDR
+CONS
+LD 0 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 2
+ADD
+ST 0 2
+LDC 3
+CONS
+CONS
+LD 0 1
+CAR
+LD 0 1
+CDR
+LDC 1
+SUB
+CONS
+LD 0 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 2
+ADD
+ST 0 2
+LDC 0
+CONS
+CONS
+LDC 0
+CONS
+CONS
+CONS
+CONS
+LD 0 2
+LDC 2
+CGT
+TSEL 234 239
 LD 0 1
 LDC 0
-LDF 65
-AP 2
-LD 0 1
-LDC 1
-LDC 1
 CONS
-LDF 55
-AP 2
-LDF 113
-AP 2
-LD 0 1
-LDF 241
-AP 2
-CONS ; pair of current player coords and new direction
+CONS
 RTN
-LD 0 0 ; map    ; def MAP_AT
+LDC 0
+CONS
+RTN
+LD 0 0 ; map; unit map_at
 LD 0 1 ; pos
 CDR    ; pos.y
-LDF 65
+LDF 252
 AP 2
 LD 0 1 ; pos
 CAR    ; pos.x
-LDF 65
+LDF 252 ; with pos.x, row
 AP 2
 RTN
-LD 0 1 ; index    ; def LIST_VAL_AT
-TSEL 67 74 ; index != 0
-LD 0 0 ; $NEXT
+LD 0 1 ; index; unit list_val_at
+TSEL 254 261 ; index != 0
+LD 0 0 ;
 CDR
 LD 0 1
 LDC 1
 SUB
-LDF 65
+LDF 252
 TAP 2
-LD 0 0 ; $RTN
+LD 0 0
 CAR
 RTN
-LD 0 0 ; orig dir    ; def GET_NEXT_DIRECTION
+LD 0 0; unit copy
+LD 0 0
+RTN
+LD 0 0; unit copy1back
+LD 0 1
+LD 0 0
+RTN
+LD 0 0; unit is_walkable
 LDC 0
 CEQ
-TSEL 81 83
-LDC 1 ; $RTN_RIGHT
+LDC 0
+CEQ
 RTN
-LD 0 0 ; $NOT_UP
+LD 0 0; unit get_max_profit_dir
+LD 0 1
+CGT
+TSEL 281 293
+LD 0 0
+LD 0 2
+CGT
+TSEL 285 289
+LD 0 0
+LD 0 3
+CGT
+TSEL 305 311
+LD 0 2
+LD 0 3
+CGT
+TSEL 309 311
+LD 0 1
+LD 0 2
+CGT
+TSEL 297 301
+LD 0 1
+LD 0 3
+CGT
+TSEL 307 311
+LD 0 2
+LD 0 3
+CGT
+TSEL 309 311
+LDC 0
+RTN
+LDC 1
+RTN
 LDC 2
-CEQ
-TSEL 87 89
-LDC 3 ; $RTN_LEFT
 RTN
-LD 0 0 ; $NOT_DOWN
-LDC 1
-CEQ
-TSEL 93 95
-LDC 0 ; $RTN_UP
+LDC 3
 RTN
-LDC 2 ; $RTN_DOWN
-RTN
-LD 0 0    ; def POINTS_EQ
-CAR
-LD 0 1
-CAR
-CEQ
-TSEL 103 111
-LD 0 0 ; $CMRY
-CDR
-LD 0 1
-CDR
-CEQ
-TSEL 109 111
-LDC 1 ; $RTN1
-RTN
-LDC 0 ; $RTN0
-RTN
-LD 0 0 ; get map    ; def GET_VALUABLE_NEIGHBOR
-LD 0 1
-CAR
-LDC 1
-ADD
-LD 0 1
-CDR
-CONS ; getting point on the right
-LDF 55
-AP 2
-LDF 199
-AP 1
-TSEL 126 134
-LD 0 1 ; $RTN_RIGHT
-CAR
-LDC 1
-ADD
-LD 0 1
-CDR
-CONS ; getting point on the right of interesting
-RTN
-LD 0 0 ; $NOT_RIGHT
-LD 0 1
-CAR
-LD 0 1
-CDR
-LDC 1
-ADD
-CONS ; point on down
-LDF 55
-AP 2
-LDF 199
-AP 1
-TSEL 147 155
-LD 0 1 ; $RTN_DOWN
-CAR
-LD 0 1
-CDR
-LDC 1
-ADD
-CONS
-RTN
-LD 0 0 ; $NOT_DOWN
-LD 0 1
-CAR
-LDC 1
-SUB
-LD 0 1
-CDR
-CONS ; point on the left
-LDF 55
-AP 2
-LDF 199
-AP 1
-TSEL 168 176
-LD 0 1 ; $RTN_LEFT
-CAR
-LDC 1
-SUB
-LD 0 1
-CDR
-CONS ; point on the left
-RTN
-LD 0 0 ; $NOT_LEFT
-LD 0 1
-CAR
-LD 0 1
-CDR
-LDC 1
-SUB
-CONS ; point on up
-LDF 55
-AP 2
-LDF 199
-AP 1
-TSEL 189 197
-LD 0 1 ; $RTN_UP
-CAR
-LD 0 1
-CDR
-LDC 1
-SUB
-CONS ; point on up
-RTN
-LDC 0 ; $RTN_NUL
-RTN
-LD 0 0    ; def IS_VALUABLE
-LDC 2 ; check pill
-CEQ
-TSEL 211 203
-LD 0 0 ; $NOT_PILL
-LDC 3 ; check power_pill
-CEQ
-TSEL 211 207
-LD 0 0 ; $NOT_POWER_PILL
-LDC 4 ; check fruit
-CEQ
-TSEL 211 213
-LDC 1 ; $RTN_TRUE
-RTN
-LDC 0 ; $RTN_FALSE
-RTN
-LD 0 0 ; from    ; def DIR_FROM_TO
-CAR ; x1
-LD 0 1 ; to
-CAR ; x2
-CGT ; x1 > x2
-TSEL 221 223
-LDC 3 ; $LEFT
-RTN
-LD 0 1 ; $NOT_LEFT
+LD 0 0; unit cons_unpack
 CAR
 LD 0 0
+CDR
+RTN
+LD 0 0; unit _neighbor_accum_wall_minus
+CDR
+CDR
+LDC 2
+CEQ
+TSEL 324 335
+LD 1 5
+LD 0 0
+CDR
 CAR
-CGT ; x2 > x1
-TSEL 229 231
-LDC 1 ; $RIGHT
+LDC 0
+CEQ
+LDC -100000
+MUL
+ADD
+ST 1 5
 RTN
-LD 0 0 ; $NOT_RIGHT
+LD 0 0
 CDR
-LD 0 1
 CDR
-CGT ; y1 > y2
-TSEL 237 239
-LDC 0 ; $UP
+LDC 0
+CEQ
+TSEL 341 352
+LD 1 3
+LD 0 0
+CDR
+CAR
+LDC 0
+CEQ
+LDC -100000
+MUL
+ADD
+ST 1 3
 RTN
-LDC 2 ; $DOWN
+LD 0 0
+CDR
+CDR
+LDC 1
+CEQ
+TSEL 358 369
+LD 1 4
+LD 0 0
+CDR
+CAR
+LDC 0
+CEQ
+LDC -100000
+MUL
+ADD
+ST 1 4
 RTN
-LD 0 0 ; args: neighbour, world    ; def DIR_TO_VALUABLE_NEIGHBOR
+LD 1 6
+LD 0 0
+CDR
+CAR
+LDC 0
+CEQ
+LDC -100000
+MUL
+ADD
+ST 1 6
+RTN
+LD 0 0; unit foreach
 ATOM
-TSEL 244 251
-LD 0 1 ; $RTN_ORIG
-LDC 2
-LDC 1
+TSEL 393 383
+LD 0 0
+CAR
+LD 0 1
+AP 1
+LD 0 0
+CDR
+LD 0 1
+LD 0 2
+LD 0 2
+TAP 3
+RTN
+LD 0 1; unit map_walk
+ATOM
+TSEL 397 398
+RTN
+LD 0 1
+LDF 465
+LDC 0
+LDC 0
 CONS
-LDF 55
+LDF 667
+AP 3     ; get neighbors of walkable neighbors
+LDF 264
+AP 1          ; get and add new visited
+CDR
+LD 0 5
+ADD
+ST 0 5
+CAR             ; get walkable from cons
+LDF 264
+AP 1
+ST 0 7
+ST 0 1
+LD 0 1
+LDF 483
+LDF 380
+LDF 264
+AP 1 ; we need to make the exact copy of foreach
+AP 3
+LDC 210
+LD 0 5
+CGT
+TSEL 427 426
+RTN
+LD 0 0 ; used for the recursive call of map_walk
+LD 0 1
+LDF 684 ; load new neighbors&crossings
+LDC 0
+LDC 0
+CONS
+LDF 667
+AP 3
+LDF 264
+AP 1
+CAR
+LDF 822 ; remove last visited wave
+LDC 0
+LDF 667
+AP 3
+LDF 854
+AP 2
+CDR
+LDF 888
+LD 0 2
+LDF 667 ; new, func, old
+AP 3
+ST 0 2
+LDF 857 ; remove visited crossings
+LDC 0
+LDF 667
+AP 3
+LD 0 2
+LD 0 7
+LD 0 4
+LDC 1
+ADD
+LD 0 5
+LDC 0 ; just for local var
+LDC 0 ; just for local var
+LD 1 2
+AP 8
+RTN
+LD 0 0; unit neighbor_accum_walkable
+CDR
+CAR ; get value of neighbor
+LDF 271
+AP 1
+TSEL 471 481
+LD 0 0
+LD 0 1
+CAR
+CONS
+LD 0 1
+CDR
+LDC 1
+ADD
+CONS
+RTN
+LD 0 1
+RTN
+LD 0 0; unit neighbor_accum_add_profit
+CDR
+CDR
+LD 0 0
+CDR
+CAR
+LDF 559
+AP 1
+LD 1 4
+LDC        10
+CGT
+TSEL 510 495
+LD 2 0
+CDR
+CDR
+CAR
+LD 0 0
+CAR
+LDF 614
+AP 2
+LDC  -10000
+MUL
+LDF 264
+AP 1
+LDC 0
+CGT
+SEL 525 517
+LD 1 4
+LDF 589
+AP 1
+MUL
+LDF 527
 AP 2
 RTN
-LD 0 1 ; $RTN_DIR_TO
-LDC 1
-LDC 1
-CONS
-LDF 55
-AP 2
+LD 1 4
+LDC       3
+CGT
+LDC 0
+CEQ
+MUL
+ADD ; adding to previous_profit
+JOIN
+ADD ; adding to previous_profit
+JOIN
+LD 0 0; unit store_dir_profit
+LDC 2
+CEQ
+TSEL 531 536
+LD 3 5
+LD 0 1
+ADD
+ST 3 5
+RTN
 LD 0 0
-LDF 215
+LDC 0
+CEQ
+TSEL 540 545
+LD 3 3
+LD 0 1
+ADD
+ST 3 3
+RTN
+LD 0 0
+LDC 1
+CEQ
+TSEL 549 554
+LD 3 4
+LD 0 1
+ADD
+ST 3 4
+RTN
+LD 3 6
+LD 0 1
+ADD
+ST 3 6
+RTN
+LD 0 0; unit get_value_profit
+LDC 2
+CEQ
+TSEL 583 563
+LD 0 0
+LDC 3
+CEQ
+TSEL 567 572
+LD 3 0
+CDR
+CAR
+CAR
+TSEL 583 587
+LD 0 0
+LDC 4
+CEQ
+TSEL 576 585
+LD 3 0
+CDR
+CDR
+CDR
+TSEL 581 585
+LDC 50000
+RTN
+LDC 1
+RTN
+LDC 0
+RTN
+LDC 10000
+RTN
+LD 0 0; unit get_dist_koef
+LDC 6
+CGT
+TSEL 593 595
+LDC 1
+RTN
+LDC 1000
+LDC 500
+LDC 250
+LDC 125
+LDC 62
+LDC 31
+LDC 15
+LDC 0
+CONS
+CONS
+CONS
+CONS
+CONS
+CONS
+CONS
+LD 0 0
+LDF 252
 AP 2
+RTN
+LD 0 0; unit is_danger
+LDF 620
+LDC 0
+LDF 667
+AP 3
+RTN
+LD 0 0; unit is_danger_one_ghost
+CDR
+CAR
+LD 1 1
+LDF 651
+AP 2
+TSEL 627 649
+LD 4 0
+CDR
+CAR
+CAR
+LDC 411 ; 3*137 3 steps of slow lambdaman
+CGT
+TSEL 634 645
+LD 0 0
+CAR
+LDC 2 ; status = invisible
+CEQ
+TSEL 649 639
+LD 0 1
+LDC 1
+SUB
+LDC 1
+SUB
+RTN
+LD 0 1
+LDC 1
+ADD
+RTN
+LD 0 1
+RTN
+LD 0 0; unit points_eq
+CAR
+LD 0 1
+CAR
+CEQ
+TSEL 657 665
+LD 0 0
+CDR
+LD 0 1
+CDR
+CEQ
+TSEL 663 665
+LDC 1
+RTN
+LDC 0
+RTN
+LD 0 0; unit reduce
+ATOM
+TSEL 682 670
+LD 0 0
+CAR
+LD 0 2
+LD 0 1
+AP 2
+ST 0 2
+LD 0 0
+CDR
+LD 0 1
+LD 0 2
+LDF 667
+TAP 3
+LD 0 2
+RTN
+LDC 0; unit neighbor_accum_neighbors
+LDC 0
+LDF 689
+AP 2
+RTN
+LD 1 1; unit _neighbor_accum_neighbors
+CAR
+ST 0 1
+LD 1 0
+CAR
+CAR
+LDC 1
+ADD
+LD 1 0
+CAR
+CDR
+CONS
+LD 2 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 0
+ADD
+ST 0 0
+LD 1 0
+CDR
+CDR
+CONS
+CONS
+LD 0 1
+CONS
+ST 0 1
+LD 1 0
+CAR
+CAR
+LD 1 0
+CAR
+CDR
+LDC 1
+ADD
+CONS
+LD 2 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 0
+ADD
+ST 0 0
+LD 1 0
+CDR
+CDR
+CONS
+CONS
+LD 0 1
+CONS
+ST 0 1
+LD 1 0
+CAR
+CAR
+LDC 1
+SUB
+LD 1 0
+CAR
+CDR
+CONS
+LD 2 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 0
+ADD
+ST 0 0
+LD 1 0
+CDR
+CDR
+CONS
+CONS
+LD 0 1
+CONS
+ST 0 1
+LD 1 0
+CAR
+CAR
+LD 1 0
+CAR
+CDR
+LDC 1
+SUB
+CONS
+LD 2 0
+LDF 267
+AP 2
+LDF 242
+AP 2
+LDF 264
+AP 1 ; counting number of ways out to determine if it's a cross
+LDF 271
+AP 1
+LD 0 0
+ADD
+ST 0 0
+LD 1 0
+CDR
+CDR
+CONS
+CONS
+LD 0 1
+CONS
+LD 0 0
+LDC 2
+CGT
+TSEL 811 818
+LD 1 0
+CAR
+LD 1 1
+CDR
+CONS
+CONS
+RTN
+LD 1 1
+CDR
+CONS
+RTN
+LD 0 0; unit neighbor_accum_not_visited
+LD 1 3
+LDF 833
+AP 2
+TSEL 827 829
+LD 0 1
+RTN
+LD 0 0
+LD 0 1
+CONS
+RTN
+LD 0 1; unit is_neighbor_in_list
+LDF 841
+LDC 1 ; unique by default
+LDF 667
+AP 3
+LDC 0
+CEQ
+RTN
+LD 0 1 ; if 0 -> element is not unique, skip further; unit _neighbor_accum_in_list
+TSEL 843 852
+LD 0 0
+CAR
+LD 1 0
+CAR
+LDF 651
+AP 2
+LDC 0
+CEQ
+RTN
+LD 0 1
+RTN
+LD 0 1; unit flip
+LD 0 0
+RTN
+LD 0 0; unit neighbor_accum_not_crossings
+CAR
+LD 1 2
+LDF 869
+AP 2
+TSEL 863 865
+LD 0 1
+RTN
+LD 0 0
+LD 0 1
+CONS
+RTN
+LD 0 1; unit is_point_in_list
+LDF 877
+LDC 1 ; unique by default
+LDF 667
+AP 3
+LDC 0
+CEQ
+RTN
+LD 0 1 ; used further to be returned; unit _point_accum_in_list
+TSEL 879 886
+LD 0 0
+LD 1 0
+LDF 651
+AP 2
+LDC 0
+CEQ
+RTN
+LD 0 1
+RTN
+LD 0 0; unit concat_accum
+LD 0 1
+CONS
 RTN
