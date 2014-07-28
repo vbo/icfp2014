@@ -1,0 +1,5 @@
+LDC 1
+LDF @get_dist_koef
+AP 1
+DBUG
+RTN

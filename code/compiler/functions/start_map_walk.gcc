@@ -54,6 +54,16 @@ LDF @get_neighbors
 AP 3 ; neighs for map_walk
 
 #cons_unpack
+LDF @copy1back
+AP 2
+; neighbors + crossings + neighbors
+
+LDF @_neighbor_accum_wall_minus
+LDF @foreach
+#call_copy ; we need to make the exact copy of foreach
+AP 3
+
+; crossings + neighbors
 
 ; making last wave list
 #ld_point

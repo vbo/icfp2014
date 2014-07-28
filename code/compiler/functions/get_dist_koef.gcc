@@ -1,0 +1,33 @@
+; get distance koef
+; args: wave_num
+; returns koef
+
+!def ld_wave_num LD 0 0
+
+#ld_wave_num
+LDC 6
+CGT
+TSEL $long $common
+$long:
+    LDC 1
+    RTN
+$common:
+    LDC 1000
+    LDC 500
+    LDC 250
+    LDC 125
+    LDC 62
+    LDC 31
+    LDC 15
+    LDC 0
+    CONS
+    CONS
+    CONS
+    CONS
+    CONS
+    CONS
+    CONS
+    #ld_wave_num
+    LDF @list_val_at
+    AP 2
+    RTN
