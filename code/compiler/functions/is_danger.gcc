@@ -2,9 +2,14 @@
 ; args: ghosts, point
 ; return: int (0 - no danger)
 
-LD 0 0
+!def ld_ghosts      LD 0 0
+!def ld_point       LD 0 1
+
+#ld_ghosts
 LDF @is_danger_one_ghost
 LDC 0
 LDF @reduce
 AP 3
 RTN
+
+

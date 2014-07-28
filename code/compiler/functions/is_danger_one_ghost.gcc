@@ -3,13 +3,13 @@
 ; IMPORTANT: LD 1 1 should return point for check (TODO: use current frame)
 ; return: new value of dangerousness
 
-LD 0 0
-CDR
-CAR
-LD 1 1 ; point
-LDF @is_close
+!def ld_ghost_point     LD 0 0, CDR, CAR
+!def ld_ac              LD 0 1
+!def ld_cur_pos         LD 1 1
+#ld_ghost_point
+#ld_cur_pos
+LDF @points_eq
 AP 2
-LD 0 1 ; accumulator
+#ld_ac
 ADD
 RTN
-

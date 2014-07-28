@@ -1,7 +1,12 @@
 ; args: cur_neighbor
 ; reduce should be started with empty rh cons-list
+; returns NONE
 
-; def ld_wave_num       LD 1 4
+!def ghost_to_far_dist  3
+!def danger_profit_koef -10000
+!def ld_wave_num        LD 1 4
+!def ld_world           LD 2 0
+!def ld_ghosts          LD 2 0, CDR, CDR, CAR
 !def ld_dir_up          LD 2 3
 !def st_dir_up          ST 2 3
 !def ld_dir_right       LD 2 4
@@ -11,42 +16,39 @@
 !def ld_dir_left        LD 2 6
 !def st_dir_left        ST 2 6
 !def ld_neigh_dir       LD 0 0, CDR, CDR
-    ;def get_value_profit       LD 0 0, CDR, CAR, LDF @get_value_profit, AP 1
-    ;def add_profit         #get_value_profit, #ld_wave_num, LDF @get_dist_koef, AP 1, MUL, ADD
-!def add_profit         LD 0 0, CDR, CAR, LDF @get_value_profit, AP 1, LD 1 4, LDF @get_dist_koef, AP 1, MUL, ADD
+!def ld_neigh_val       LD 0 0, CDR, CAR
+!def ld_neigh_point     LD 0 0, CAR
 
 #ld_neigh_dir
-LDC #down
-CEQ
-TSEL $add_down $not_down
-$add_down:
-    #ld_dir_down
-    #add_profit
-    #st_dir_down
-    RTN
-$not_down:
-    #ld_neigh_dir
-    LDC #up
-    CEQ
-    TSEL $add_up $not_up
-        $add_up:
-            #ld_dir_up
-            #add_profit
-            #st_dir_up
-            RTN
-        $not_up:
-            #ld_neigh_dir
-            LDC #right
-            CEQ
-            TSEL $add_right $not_right
-            $add_right:
-                #ld_dir_right
-                #add_profit
-                #st_dir_right
-                RTN
-            $not_right:
-                #ld_dir_left
-                #add_profit
-                #st_dir_left
-                RTN
 
+#ld_neigh_val
+LDF @get_value_profit
+AP 1
+; profit + dir
+
+#ld_wave_num
+LDC #ghost_to_far_dist
+CGT
+TSEL $danger_too_far $check_danger
+
+$check_danger:
+    ; in stack should be profit
+    #ld_ghosts
+    #ld_neigh_point
+    LDF @is_danger
+    AP 2
+    LDC #danger_profit_koef
+    MUL
+    ADD ; adding to profit
+
+$danger_too_far:
+
+#ld_wave_num
+LDF @get_dist_koef
+AP 1
+MUL
+
+LDF @store_dir_profit
+AP 2
+
+RTN

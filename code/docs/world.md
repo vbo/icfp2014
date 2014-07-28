@@ -22,6 +22,7 @@ The state of the world is encoded as follows:
   * n > 0: fruit present: the number of game ticks remaining while the
            fruit will will be present.
 
+
 Direction
   * 0: up;
   * 1: right;
