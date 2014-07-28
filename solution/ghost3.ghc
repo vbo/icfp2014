@@ -1,0 +1,89 @@
+inc [100]
+mov a, [100]
+int 8
+int 3
+int 5
+;int 8
+
+mov [0], a ; our x
+mov [1], b ; our y
+
+mov [2], [0]
+mov [3], [1]
+inc [3]
+
+mov a, [2]
+mov b, [3]
+int 7 ; a - content of map
+;int 8
+
+mov [4], a ; x, y + 1
+
+mov [2], [0]
+mov [3], [1]
+dec [3]
+
+mov a, [2]
+mov b, [3]
+int 7 ; a - content of map
+;int 8
+
+mov [5], a ; x, y - 1
+
+mov [2], [0]
+mov [3], [1]
+inc [2]
+
+mov a, [2]
+mov b, [3]
+int 7 ; a - content of map
+;int 8
+
+mov [6], a ; x - 1, y
+
+mov [2], [0]
+mov [3], [1]
+dec [2]
+
+mov a, [2]
+mov b, [3]
+int 7 ; a - content of map
+;int 8
+
+mov [7], a ; x + 1, y
+
+;mov a, [4] ; x, y + 1
+;mov b, [5] ; x, y - 1
+;mov c, [6] ; x + 1, y
+;mov d, [7] ; x - 1, y
+;int 8
+
+jeq 41, [4], 0
+mov a, 2 ; down
+mov b, 11
+int 8
+int 0
+hlt
+
+jeq 47, [5], 0
+mov a, 0 ; up
+mov b, 22
+int 8
+int 0
+hlt
+
+jeq 53, [6], 0
+mov a, 1 ; right
+mov b, 33
+int 8
+int 0
+hlt
+
+mov a, 3 ; left
+mov b, 44
+int 8
+int 0
+hlt
+
+
+
