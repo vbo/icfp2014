@@ -1,15 +1,32 @@
 ; return dangerousness of the point affected by definite ghost
 ; args: ghost, accumulator of dangerousness
 ; IMPORTANT: LD 1 1 should return point for check (TODO: use current frame)
-; return: new value of dangerousness
+; return: 0 - invisible, 1 - visible, 0 - no ghost
 
 !def ld_ghost_point     LD 0 0, CDR, CAR
+!def ld_ghost_status    LD 0 0, CAR
 !def ld_ac              LD 0 1
 !def ld_cur_pos         LD 1 1
+
 #ld_ghost_point
 #ld_cur_pos
 LDF @points_eq
 AP 2
-#ld_ac
-ADD
-RTN
+
+#ld_ghost_status
+LDC 2
+CEQ
+TSEL $invisible $visible
+
+$invisible:
+    LDC 0
+    MUL
+    #ld_ac
+    ADD
+    RTN
+$visible:
+    LDC 1
+    MUL
+    #ld_ac
+    ADD
+    RTN

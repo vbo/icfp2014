@@ -1,7 +1,9 @@
 ; args: value of map
 ; return: value in ['pill', 'power_pill', 'fruit']
 
-LD 0 0
+!def ld_val LD 0 0
+
+#ld_val
 LDC #pill
 CEQ
 TSEL $rtn_true $not_pill
@@ -9,10 +11,13 @@ $rtn_true:
     LDC 1
     RTN
 $not_pill:
-    LD 0 0
+    #ld_val
     LDC #power_pill
     CEQ
-    TSEL $rtn_true $rtn_false
+    TSEL $rtn_power_pill $rtn_false
 $rtn_false:
     LDC 0
+    RTN
+$rtn_power_pill:
+    LDC 10000
     RTN
