@@ -40,8 +40,6 @@ $check_danger:
     AP 2
     LDC #danger_profit_koef
     MUL
-    #ld_fright_mode
-    SEL $fright_mode $no_fright_mode
     ADD ; adding to profit
 
 $danger_too_far:
@@ -55,14 +53,3 @@ LDF @store_dir_profit
 AP 2
 
 RTN
-
-$no_fright_mode:
-    JOIN
-$fright_mode:
-    LDC -1
-    MUL
-    LDC 555
-    DBUG
-    #call_copy
-    DBUG
-    JOIN

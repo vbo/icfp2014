@@ -1,32 +1,43 @@
 ; return dangerousness of the point affected by definite ghost
 ; args: ghost, accumulator of dangerousness
 ; IMPORTANT: LD 1 1 should return point for check (TODO: use current frame)
-; return: 0 - invisible, 1 - visible, 0 - no ghost
+; return: 1 - danger, 0 - no_danger, -1 - profit
 
-!def ld_ghost_point     LD 0 0, CDR, CAR
-!def ld_ghost_status    LD 0 0, CAR
-!def ld_ac              LD 0 1
-!def ld_cur_pos         LD 1 1
+!def ld_ghost_point         LD 0 0, CDR, CAR
+!def ld_ghost_status        LD 0 0, CAR
+!def ld_ac                  LD 0 1
+!def ld_cur_pos             LD 1 1
+!def ld_world               LD 4 0
+!def ld_fright_time_left    LD 4 0, CDR, CAR, CAR
 
 #ld_ghost_point
 #ld_cur_pos
 LDF @points_eq
 AP 2
 
-#ld_ghost_status
-LDC 2
-CEQ
-TSEL $invisible $visible
+TSEL $here $safe
 
-$invisible:
-    LDC 0
-    MUL
+$here:
+    #ld_fright_time_left
+    LDC 411 ; 3*137 3 steps of slow lambdaman
+    CGT
+    TSEL $real_fright_mode $fake_fright_mode
+
+    $real_fright_mode:
+        #ld_ghost_status
+        LDC 2 ; status = invisible
+        CEQ
+        TSEL $safe $visible
+        $visible:
+            #ld_ac
+            #dec
+            RTN
+
+    $fake_fright_mode:
+        #ld_ac
+        #inc
+        RTN
+
+$safe:
     #ld_ac
-    ADD
-    RTN
-$visible:
-    LDC 1
-    MUL
-    #ld_ac
-    ADD
     RTN
